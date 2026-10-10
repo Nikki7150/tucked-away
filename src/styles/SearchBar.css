@@ -1,0 +1,9 @@
+p {
+    margin: 0;
+}
+
+.search-bar-container {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
