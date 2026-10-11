@@ -2,10 +2,10 @@ import '../styles/SavedItem.css'
 import SavedItemCard from './SavedItemCard';
 import sampleItem from '../data/sampleItems';
 
-const SavedItemGrid = () => {
+const SavedItemGrid = ({ query, setQuery }) => {
     return (
         <div className="saved-grid-container">
-            {sampleItem.map((item) => (
+            {sampleItem.filter(query).map((item) => (
                 <SavedItemCard 
                     key={item.id}
                     title={item.title}
