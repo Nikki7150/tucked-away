@@ -1,15 +1,20 @@
 import '../styles/SavedItem.css'
 
-const SavedItemCard = () => {
+const SavedItemCard = ({ title, tags, notes, image }) => {
     return (
         <div className="saved-card-container">
-            <h2>Free CSS stuff</h2>
+            {image && (
+                <img src={image} alt={title} />
+            )}
+            <h2>{title}</h2>
             <div className='tags'>
-                <p>Coding</p>
-                <p>CSS</p>
-                <p>Free stuff</p>
+                {tags.map((tag) => (
+                    <p key={tag}>
+                        {tag}
+                    </p>
+                ))}
             </div>
-            <p>found this when searcfhing for a tut. its soo convenient</p>
+            <p>{notes}</p>
         </div>
     );
 };
