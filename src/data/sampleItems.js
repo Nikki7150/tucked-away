@@ -16,7 +16,7 @@ const sampleItem = [
     {
         id: 3,
         title: 'KDrama recs', 
-        tags: ['KDrama', 'shows', 'want to watch'], 
+        tags: [''], 
         notes: 'these are soo cool. i wanna watch them soo bad', 
         image: 'https://upload.wikimedia.org/wikipedia/en/0/0c/Take_Charge_of_My_Heart_poster.png?utm_source=en.wikipedia.org&utm_campaign=index&utm_content=original'
     },

@@ -1,11 +1,15 @@
 import '../styles/SavedItem.css'
 import SavedItemCard from './SavedItemCard';
-import sampleItem from '../data/sampleItems';
 
-const SavedItemGrid = ({ query, setQuery }) => {
+const SavedItemGrid = ({ query, items }) => {
+    const filteredItems = items.filter(item => {
+        return item.title.toLowerCase().includes(query.toLowerCase()) || 
+        item.tags.some(tag => tag.toLowerCase().includes(query.toLowerCase())) ||
+        item.notes.toLowerCase().includes(query.toLowerCase());
+    });
     return (
         <div className="saved-grid-container">
-            {sampleItem.filter(query).map((item) => (
+            {filteredItems.map((item) => (
                 <SavedItemCard 
                     key={item.id}
                     title={item.title}
