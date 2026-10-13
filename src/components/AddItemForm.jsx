@@ -1,45 +1,58 @@
 import { useState } from 'react';
 import '../styles/AddItemForm.css'
 
-const AddItemForm = () => {
+const AddItemForm = ({ addItem }) => {
     const [title, setTitle] = useState('');
     const [notes, setNotes] = useState('');
-    const [tag, setTag] = useState('');
+    const [tags, setTags] = useState('');
     const [imageUrl, setImageUrl] = useState('');
-    const [tagForm, setTagForm] = useState(false);
+
+    const checkTag = (tag) => {
+        return typeof tag === 'string' && tag.trim().length > 0;
+    };
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        const separatedTags = tags.split(',').map((tag) => {
+            return tag.trim().toLowerCase();
+        }).filter(checkTag);
+        addItem(title, separatedTags, notes, imageUrl);
+        setTitle('');
+        setTags('');
+        setNotes('');
+        setImageUrl('');
+    };
+
     return (
         <div className='add-form-container'>
-            <div className='add-form'>
+            <form className='add-form' onSubmit={handleSubmit}>
                 <input
                     type='text'
+                    required
                     placeholder='Add title...'
                     value={title}
-                    onChange={setTitle}
+                    onChange={(e) => setTitle(e.target.value)}
                 />
-                <div className='tags-created'></div>
-                <button onClick={() => setTagForm(true)}>Add tags</button>
-                <div className='tag-form'>
-                    <input
-                        type='text'
-                        placeholder='Add tag...'
-                        value={tag}
-                        onChange={setTag}
-                    />
-                    <button className='add-tag'>+</button>
-                </div>
+                <input
+                    type='text'
+                    placeholder='General, Free stuff...'
+                    value={tags}
+                    onChange={(e) => setTags(e.target.value)}
+                />
                 <input
                     type='text'
                     placeholder='Add notes...'
                     value={notes}
-                    onChange={setNotes}
+                    onChange={(e) => setNotes(e.target.value)}
                 />
                 <input
                     type='url'
                     placeholder='Add Image Url...'
                     value={imageUrl}
-                    onChange={setImageUrl}
+                    onChange={(e) => setImageUrl(e.target.value)}
                 />
-            </div>
+                <button type='submit'>Add Item</button>
+            </form>
         </div>
     );
 };

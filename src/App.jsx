@@ -9,12 +9,25 @@ function App() {
   const [query, setQuery] = useState('');
   const [items, setItems] = useState(sampleItem);
   const [addForm, setAddForm] = useState(false);
+
+  const addItem = (title, tags, notes, imageUrl) => {
+    const newItems = {
+      id: Date.now(),
+      title: title,
+      tags: tags,
+      notes: notes,
+      image: imageUrl,
+    };
+    setItems((previtems) => [...previtems, newItems]);
+    setAddForm(false);
+  }
+
   return (
     <div className='app-contents'>
       <Header query={query} setQuery={setQuery} setAddForm={setAddForm} />
       <SavedItemGrid query={query} items={items} setItems={setItems} />
       {addForm && (
-        <AddItemForm />
+        <AddItemForm addItem={addItem} />
       )}
     </div>
   );
