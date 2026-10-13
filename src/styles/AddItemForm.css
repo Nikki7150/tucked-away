@@ -3,8 +3,9 @@
     top: 0;
     left: 0;
     width: 100%;
-    height: auto;
+    height: 100%;
     background-color: rgba(0, 0, 0, 0.599);
+    z-index: 1001;
 }
 
 .add-form {
@@ -13,4 +14,16 @@
     background-color: antiquewhite;
     border-radius: 20px;
     padding: 20px;
+    position: relative;
+    z-index: 1002;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+input {
+    padding: 10px;
 }

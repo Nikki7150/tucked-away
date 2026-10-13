@@ -20,14 +20,20 @@ function App() {
     };
     setItems((previtems) => [...previtems, newItems]);
     setAddForm(false);
-  }
+  };
+
+  const deleteItem = (id) => {
+    if (window.confirm("Are you sure you want to delete this card?")) {
+      setItems((prevItems) => prevItems.filter((item) => item.id !== id));
+    }
+  };
 
   return (
     <div className='app-contents'>
       <Header query={query} setQuery={setQuery} setAddForm={setAddForm} />
-      <SavedItemGrid query={query} items={items} setItems={setItems} />
+      <SavedItemGrid query={query} items={items} setItems={setItems} deleteItem={deleteItem} />
       {addForm && (
-        <AddItemForm addItem={addItem} />
+        <AddItemForm addItem={addItem} setAddForm={setAddForm} />
       )}
     </div>
   );

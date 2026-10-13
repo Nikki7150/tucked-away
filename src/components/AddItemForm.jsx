@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import '../styles/AddItemForm.css'
 
-const AddItemForm = ({ addItem }) => {
+const AddItemForm = ({ addItem, setAddForm }) => {
     const [title, setTitle] = useState('');
     const [notes, setNotes] = useState('');
     const [tags, setTags] = useState('');
@@ -24,8 +24,9 @@ const AddItemForm = ({ addItem }) => {
     };
 
     return (
-        <div className='add-form-container'>
+        <div className='add-form-container' onClick={() => setAddForm(false)}>
             <form className='add-form' onSubmit={handleSubmit}>
+                <h1>Add Item</h1>
                 <input
                     type='text'
                     required

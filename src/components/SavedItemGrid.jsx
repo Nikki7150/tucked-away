@@ -1,7 +1,7 @@
 import '../styles/SavedItem.css'
 import SavedItemCard from './SavedItemCard';
 
-const SavedItemGrid = ({ query, items }) => {
+const SavedItemGrid = ({ query, items, deleteItem }) => {
     const filteredItems = items.filter(item => {
         return item.title.toLowerCase().includes(query.toLowerCase()) || 
         item.tags.some(tag => tag.toLowerCase().includes(query.toLowerCase())) ||
@@ -12,10 +12,12 @@ const SavedItemGrid = ({ query, items }) => {
             {filteredItems.map((item) => (
                 <SavedItemCard 
                     key={item.id}
+                    id={item.id}
                     title={item.title}
                     tags={item.tags}
                     notes={item.notes}
                     image={item.image}
+                    deleteItem={deleteItem}
                 />
             ))}
         </div>
