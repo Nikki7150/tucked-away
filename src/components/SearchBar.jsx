@@ -2,7 +2,7 @@ import '../styles/SearchBar.css'
 import { IoFilter } from "react-icons/io5";
 import TagsList from './TagsList';
 
-const SearchBar = ({ query, setQuery, setTagsList, tagsList, noRepeatTags }) => {
+const SearchBar = ({ query, setQuery, setTagsList, tagsList, noRepeatTags, selectedTag, setSelectedTag }) => {
     return (
         <div className="search-bar-wrapper">
             <div className="search-bar-container">
@@ -14,7 +14,7 @@ const SearchBar = ({ query, setQuery, setTagsList, tagsList, noRepeatTags }) => 
                 />
                 <button onClick={() => setTagsList(!tagsList)}><IoFilter /></button>
             </div>
-            {tagsList && <TagsList noRepeatTags={noRepeatTags} />}
+            {tagsList && <TagsList noRepeatTags={noRepeatTags} setSelectedTag={setSelectedTag} selectedTag={selectedTag} />}
         </div>
     );
 };
