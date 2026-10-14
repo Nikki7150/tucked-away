@@ -24,7 +24,8 @@ const AddItemForm = ({ addItem, setAddForm }) => {
     };
 
     return (
-        <div className='add-form-container' onClick={() => setAddForm(false)}>
+        <div className='add-form-container' // onClick={() => setAddForm(false)}
+        >
             <form className='add-form' onSubmit={handleSubmit}>
                 <h1>Add Item</h1>
                 <input

@@ -9,6 +9,9 @@ function App() {
   const [query, setQuery] = useState('');
   const [items, setItems] = useState(sampleItem);
   const [addForm, setAddForm] = useState(false);
+  const [tagsList, setTagsList] = useState(false);
+  const [showFavorites, setShowFavorites] = useState(false);
+  const [selectedTag, setSelectedTag] = useState('');
 
   const addItem = (title, tags, notes, imageUrl) => {
     const newItems = {
@@ -17,8 +20,9 @@ function App() {
       tags: tags,
       notes: notes,
       image: imageUrl,
+      favorite: false,
     };
-    setItems((previtems) => [...previtems, newItems]);
+    setItems((prevItems) => [...prevItems, newItems]);
     setAddForm(false);
   };
 
@@ -28,10 +32,17 @@ function App() {
     }
   };
 
+  const toggleFavorite = (id) => {
+    setItems((prevItems) => prevItems.map((item) => item.id === id ? {...item, favorite: !item.favorite} : item));
+  };
+
+  const allTags = items.flatMap(item => item.tags || []);
+  const noRepeatTags = [...new Set(allTags)];
+
   return (
     <div className='app-contents'>
-      <Header query={query} setQuery={setQuery} setAddForm={setAddForm} />
-      <SavedItemGrid query={query} items={items} setItems={setItems} deleteItem={deleteItem} />
+      <Header query={query} setQuery={setQuery} setAddForm={setAddForm} setShowFavorites={setShowFavorites} setTagsList={setTagsList} tagsList={tagsList} noRepeatTags={noRepeatTags} />
+      <SavedItemGrid query={query} items={items} setItems={setItems} deleteItem={deleteItem} showFavorites={showFavorites} toggleFavorite={toggleFavorite} />
       {addForm && (
         <AddItemForm addItem={addItem} setAddForm={setAddForm} />
       )}

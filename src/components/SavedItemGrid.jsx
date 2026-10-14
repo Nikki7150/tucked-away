@@ -1,12 +1,13 @@
 import '../styles/SavedItem.css'
 import SavedItemCard from './SavedItemCard';
 
-const SavedItemGrid = ({ query, items, deleteItem }) => {
+const SavedItemGrid = ({ query, items, deleteItem, showFavorites, toggleFavorite }) => {
     const filteredItems = items.filter(item => {
         return item.title.toLowerCase().includes(query.toLowerCase()) || 
         item.tags.some(tag => tag.toLowerCase().includes(query.toLowerCase())) ||
-        item.notes.toLowerCase().includes(query.toLowerCase());
-    });
+        item.notes.toLowerCase().includes(query.toLowerCase())
+    })
+    .filter((item) => !showFavorites || item.favorite);
     return (
         <div className="saved-grid-container">
             {filteredItems.map((item) => (
@@ -18,6 +19,8 @@ const SavedItemGrid = ({ query, items, deleteItem }) => {
                     notes={item.notes}
                     image={item.image}
                     deleteItem={deleteItem}
+                    favorite={item.favorite}
+                    toggleFavorite={toggleFavorite}
                 />
             ))}
         </div>
