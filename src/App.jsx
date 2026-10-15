@@ -46,8 +46,19 @@ function App() {
     setShowFavorites(false);
   };
 
-  const editItem = (id) => {
+  const editingItem = items.find(item => item.id === editingId);
 
+  const updateItem = (title, notes, tags, imageUrl) => {
+    setItems((prevItems) => prevItems.map((item) => 
+      item.id === editingId ? {
+        ...item, 
+        notes: notes, 
+        title: title, 
+        image: imageUrl, 
+        tags: tags
+      } : item));
+    setAddForm(false);
+    setEditingId(null);
   }
 
   return (
@@ -55,7 +66,7 @@ function App() {
       <Header query={query} setQuery={setQuery} setAddForm={setAddForm} setShowFavorites={setShowFavorites} setTagsList={setTagsList} tagsList={tagsList} noRepeatTags={noRepeatTags} setSelectedTag={setSelectedTag} selectedTag={selectedTag} setEditingId={setEditingId} />
       <SavedItemGrid query={query} items={items} setItems={setItems} deleteItem={deleteItem} showFavorites={showFavorites} toggleFavorite={toggleFavorite} selectedTag={selectedTag} clearFilters={clearFilters} setEditingId={setEditingId} setAddForm={setAddForm} />
       {addForm && (
-        <AddItemForm addItem={addItem} setAddForm={setAddForm} editingId={editingId} />
+        <AddItemForm addItem={addItem} setAddForm={setAddForm} editingId={editingId} editingItem={editingItem} updateItem={updateItem} setEditingId={setEditingId} />
       )}
     </div>
   );

@@ -1,7 +1,7 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import '../styles/AddItemForm.css'
 
-const AddItemForm = ({ addItem, setAddForm, editingId }) => {
+const AddItemForm = ({ addItem, setAddForm, editingId, editingItem, updateItem, setEdd }) => {
     const [title, setTitle] = useState('');
     const [notes, setNotes] = useState('');
     const [tags, setTags] = useState('');
@@ -16,18 +16,35 @@ const AddItemForm = ({ addItem, setAddForm, editingId }) => {
         const separatedTags = tags.split(',').map((tag) => {
             return tag.trim().toLowerCase();
         }).filter(checkTag);
-        addItem(title, separatedTags, notes, imageUrl);
+        if (editingId) {
+            updateItem(title, notes, separatedTags, imageUrl)
+        } else {
+            addItem(title, separatedTags, notes, imageUrl);
+        }
         setTitle('');
         setTags('');
         setNotes('');
         setImageUrl('');
     };
 
+    useEffect(() => {
+        if (editingItem) {
+            setTitle(editingItem.title);
+            setNotes(editingItem.notes);
+            setTags(editingItem.tags.join(', '));
+            setImageUrl(editingItem.image || '');
+        } else {
+            setTitle('');
+            setTags('');
+            setNotes('');
+            setImageUrl('');
+        }
+    }, [editingItem]);
+
     return (
-        <div className='add-form-container' // onClick={() => setAddForm(false)}
-        >
+        <div className='add-form-container'>
             <form className='add-form' onSubmit={handleSubmit}>
-                <h1>Add Item</h1>
+                <h1>{editingItem ? 'Edit Item' : 'Add Item'}</h1>
                 <input
                     type='text'
                     required
@@ -53,8 +70,8 @@ const AddItemForm = ({ addItem, setAddForm, editingId }) => {
                     value={imageUrl}
                     onChange={(e) => setImageUrl(e.target.value)}
                 />
-                <button onClick={() => setAddForm(false)}>Cancel</button>
-                <button type='submit'>Add Item</button>
+                <button type='button' onClick={() => { setAddForm(false); setEditingId(null); }}>Cancel</button>
+                <button type='submit'>{editingItem ? 'Save changes' : 'Add new card'}</button>
             </form>
         </div>
     );
