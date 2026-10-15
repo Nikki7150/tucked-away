@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import '../styles/AddItemForm.css'
 
-const AddItemForm = ({ addItem, setAddForm }) => {
+const AddItemForm = ({ addItem, setAddForm, editingId }) => {
     const [title, setTitle] = useState('');
     const [notes, setNotes] = useState('');
     const [tags, setTags] = useState('');
@@ -53,6 +53,7 @@ const AddItemForm = ({ addItem, setAddForm }) => {
                     value={imageUrl}
                     onChange={(e) => setImageUrl(e.target.value)}
                 />
+                <button onClick={() => setAddForm(false)}>Cancel</button>
                 <button type='submit'>Add Item</button>
             </form>
         </div>

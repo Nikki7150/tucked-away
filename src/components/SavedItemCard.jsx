@@ -1,8 +1,8 @@
 import '../styles/SavedItem.css'
-import { CiTrash } from "react-icons/ci";
+import { CiTrash, CiEdit } from "react-icons/ci";
 import { IoMdHeartEmpty, IoMdHeart } from "react-icons/io";
 
-const SavedItemCard = ({ id, title, tags, notes, image, deleteItem, favorite, toggleFavorite }) => {
+const SavedItemCard = ({ id, title, tags, notes, image, deleteItem, favorite, toggleFavorite, setEditingId, setAddForm }) => {
     return (
         <div className="saved-card-container">
             {image && (
@@ -10,7 +10,6 @@ const SavedItemCard = ({ id, title, tags, notes, image, deleteItem, favorite, to
             )}
             <button onClick={() => toggleFavorite(id)}>{favorite ? <IoMdHeart /> :<IoMdHeartEmpty />}</button>
             <h2>{title}</h2>
-            <button onClick={() => deleteItem(id)} aria-label='delete button'><CiTrash /></button>
             <div className='tags'>
                 {tags.map((tag) => (
                     <p key={tag}>
@@ -19,6 +18,8 @@ const SavedItemCard = ({ id, title, tags, notes, image, deleteItem, favorite, to
                 ))}
             </div>
             <p>{notes}</p>
+            <button onClick={() => deleteItem(id)} aria-label='delete button'><CiTrash /></button>
+            <button onClick={() => { setEditingId(id); setAddForm(true); }} aria-label='delete button'><CiEdit /></button>
         </div>
     );
 };

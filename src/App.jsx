@@ -12,6 +12,7 @@ function App() {
   const [tagsList, setTagsList] = useState(false);
   const [showFavorites, setShowFavorites] = useState(false);
   const [selectedTag, setSelectedTag] = useState('');
+  const [editingId, setEditingId] = useState(null);
 
   const addItem = (title, tags, notes, imageUrl) => {
     const newItems = {
@@ -39,12 +40,22 @@ function App() {
   const allTags = items.flatMap(item => item.tags || []);
   const noRepeatTags = [...new Set(allTags)];
 
+  const clearFilters = () => {
+    setQuery('');
+    setSelectedTag('');
+    setShowFavorites(false);
+  };
+
+  const editItem = (id) => {
+
+  }
+
   return (
     <div className='app-contents'>
-      <Header query={query} setQuery={setQuery} setAddForm={setAddForm} setShowFavorites={setShowFavorites} setTagsList={setTagsList} tagsList={tagsList} noRepeatTags={noRepeatTags} setSelectedTag={setSelectedTag} selectedTag={selectedTag} />
-      <SavedItemGrid query={query} items={items} setItems={setItems} deleteItem={deleteItem} showFavorites={showFavorites} toggleFavorite={toggleFavorite} selectedTag={selectedTag} />
+      <Header query={query} setQuery={setQuery} setAddForm={setAddForm} setShowFavorites={setShowFavorites} setTagsList={setTagsList} tagsList={tagsList} noRepeatTags={noRepeatTags} setSelectedTag={setSelectedTag} selectedTag={selectedTag} setEditingId={setEditingId} />
+      <SavedItemGrid query={query} items={items} setItems={setItems} deleteItem={deleteItem} showFavorites={showFavorites} toggleFavorite={toggleFavorite} selectedTag={selectedTag} clearFilters={clearFilters} setEditingId={setEditingId} setAddForm={setAddForm} />
       {addForm && (
-        <AddItemForm addItem={addItem} setAddForm={setAddForm} />
+        <AddItemForm addItem={addItem} setAddForm={setAddForm} editingId={editingId} />
       )}
     </div>
   );

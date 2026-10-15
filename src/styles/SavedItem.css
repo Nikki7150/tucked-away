@@ -7,6 +7,24 @@
     columns: 250px;
 }
 
+.saved-grid-container.empty-state {
+    min-height: 70vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    columns: initial;
+    padding-top: 50px;
+}
+
+.empty-state-div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    gap: 10px;
+}
+
 .saved-grid-container .saved-card-container {
     width: 100%;
     margin-bottom: 10px;
@@ -24,3 +42,22 @@
     background-color: aliceblue;
     background-repeat: no-repeat;
 }
+
+.empty-text {
+    margin: 0;
+    text-align: center;
+    color: #333;
+    font-size: clamp(1.5rem, 3vw, 2.0rem);
+}
+
+.clear-filters {
+    background-color: transparent;
+    border: none;
+    color: pink;
+    margin: 0;
+    text-align: center;
+    font-size: clamp(1.0rem, 3vw, 1.5rem);
+    display: inline-block;
+    cursor: pointer;
+}
+
