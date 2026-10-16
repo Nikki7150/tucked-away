@@ -1,9 +1,11 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './App.css';
 import Header from './components/Header.jsx';
 import SavedItemGrid from './components/SavedItemGrid.jsx';
 import sampleItem from './data/sampleItems.js';
 import AddItemForm from './components/AddItemForm.jsx';
+import { onAuthStateChanged, signInWithPopup } from 'firebase/auth';
+import { auth, googleProvider } from '../firebaseConfig.js';
 
 function App() {
   const [query, setQuery] = useState('');
@@ -13,6 +15,32 @@ function App() {
   const [showFavorites, setShowFavorites] = useState(false);
   const [selectedTag, setSelectedTag] = useState('');
   const [editingId, setEditingId] = useState(null);
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (firebaseUser) => {
+      setUser(firebaseUser);
+      setLoading(false);
+    });
+    return unsubscribe;
+  }, []);
+
+  const signIn = async () => {
+    try {
+      await signInWithPopup(auth, googleProvider);
+    } catch (error) {
+      console.error('Error signing in: ', error);
+    }
+  };
+
+  const handleSignOut = async () => {
+    try {
+      await signOut(auth);
+    } catch (error) {
+      console.error('Error signing out: ', error);
+    }
+  };
 
   const addItem = (title, tags, notes, imageUrl) => {
     const newItems = {
@@ -63,10 +91,23 @@ function App() {
 
   return (
     <div className='app-contents'>
-      <Header query={query} setQuery={setQuery} setAddForm={setAddForm} setShowFavorites={setShowFavorites} setTagsList={setTagsList} tagsList={tagsList} noRepeatTags={noRepeatTags} setSelectedTag={setSelectedTag} selectedTag={selectedTag} setEditingId={setEditingId} />
-      <SavedItemGrid query={query} items={items} setItems={setItems} deleteItem={deleteItem} showFavorites={showFavorites} toggleFavorite={toggleFavorite} selectedTag={selectedTag} clearFilters={clearFilters} setEditingId={setEditingId} setAddForm={setAddForm} />
-      {addForm && (
-        <AddItemForm addItem={addItem} setAddForm={setAddForm} editingId={editingId} editingItem={editingItem} updateItem={updateItem} setEditingId={setEditingId} />
+      {loading && (
+        <p>Loading...</p>
+      )}
+      {user === null ? (
+        <>
+          <h1>Tucked Away</h1>
+          <p>Your archive of random things</p>
+          <button onClick={() => signIn()}>Sign In</button>
+        </>
+      ) : (
+        <>
+          <Header query={query} setQuery={setQuery} setAddForm={setAddForm} setShowFavorites={setShowFavorites} setTagsList={setTagsList} tagsList={tagsList} noRepeatTags={noRepeatTags} setSelectedTag={setSelectedTag} selectedTag={selectedTag} setEditingId={setEditingId} />
+        <SavedItemGrid query={query} items={items} setItems={setItems} deleteItem={deleteItem} showFavorites={showFavorites} toggleFavorite={toggleFavorite} selectedTag={selectedTag} clearFilters={clearFilters} setEditingId={setEditingId} setAddForm={setAddForm} />
+        {addForm && (
+          <AddItemForm addItem={addItem} setAddForm={setAddForm} editingId={editingId} editingItem={editingItem} updateItem={updateItem} setEditingId={setEditingId} />
+        )}
+        </>
       )}
     </div>
   );
