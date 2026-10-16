@@ -1,6 +1,6 @@
 .saved-grid-container {
     position: relative;
-    padding: 100px 50px 50px 50px;
+    padding: 50px;
     width: 100%;
     max-width: 1400px;
     margin: 20px auto;
@@ -33,6 +33,7 @@
     break-inside: avoid;
     background-color: white;
     padding: 15px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
 }
 
 .dynamic-img {

@@ -6,6 +6,8 @@ import sampleItem from './data/sampleItems.js';
 import AddItemForm from './components/AddItemForm.jsx';
 import { onAuthStateChanged, signInWithPopup, signOut } from 'firebase/auth';
 import { auth, googleProvider } from '../firebaseConfig.js';
+import ProfileModal from './components/ProfileModal.jsx';
+import { FaCircleUser } from "react-icons/fa6";
 
 function App() {
   const [query, setQuery] = useState('');
@@ -17,6 +19,7 @@ function App() {
   const [editingId, setEditingId] = useState(null);
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [profileModal, setProfileModal] = useState(false);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (firebaseUser) => {
@@ -102,12 +105,18 @@ function App() {
         </div>
       ) : (
         <div className='home-screen'>
-          <Header query={query} setQuery={setQuery} setAddForm={setAddForm} setShowFavorites={setShowFavorites} setTagsList={setTagsList} tagsList={tagsList} noRepeatTags={noRepeatTags} setSelectedTag={setSelectedTag} selectedTag={selectedTag} setEditingId={setEditingId} />
+          <header className="header">
+            <p>Tucked Away</p>
+            <Header query={query} setQuery={setQuery} setAddForm={setAddForm} setShowFavorites={setShowFavorites} setTagsList={setTagsList} tagsList={tagsList} noRepeatTags={noRepeatTags} setSelectedTag={setSelectedTag} selectedTag={selectedTag} setEditingId={setEditingId} />
+            <button className='open-profile' onClick={() => setProfileModal(true)} style={{ backgroundImage: `url(${user?.photoURL})`, backgroundSize: 'cover' }}></button>
+          </header>
+          {profileModal && (
+            <ProfileModal setProfileModal={setProfileModal} handleSignOut={handleSignOut} user={user} />
+          )}
           <SavedItemGrid query={query} items={items} setItems={setItems} deleteItem={deleteItem} showFavorites={showFavorites} toggleFavorite={toggleFavorite} selectedTag={selectedTag} clearFilters={clearFilters} setEditingId={setEditingId} setAddForm={setAddForm} />
           {addForm && (
             <AddItemForm addItem={addItem} setAddForm={setAddForm} editingId={editingId} editingItem={editingItem} updateItem={updateItem} setEditingId={setEditingId} />
           )}
-          <button onClick={() => handleSignOut()}>Sign Out</button>
         </div>
       )}
     </div>

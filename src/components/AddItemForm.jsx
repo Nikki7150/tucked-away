@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import '../styles/AddItemForm.css'
 
-const AddItemForm = ({ addItem, setAddForm, editingId, editingItem, updateItem, setEdd }) => {
+const AddItemForm = ({ addItem, setAddForm, editingId, editingItem, updateItem, setEditingId }) => {
     const [title, setTitle] = useState('');
     const [notes, setNotes] = useState('');
     const [tags, setTags] = useState('');
