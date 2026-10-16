@@ -4,7 +4,7 @@ import Header from './components/Header.jsx';
 import SavedItemGrid from './components/SavedItemGrid.jsx';
 import sampleItem from './data/sampleItems.js';
 import AddItemForm from './components/AddItemForm.jsx';
-import { onAuthStateChanged, signInWithPopup } from 'firebase/auth';
+import { onAuthStateChanged, signInWithPopup, signOut } from 'firebase/auth';
 import { auth, googleProvider } from '../firebaseConfig.js';
 
 function App() {
@@ -95,19 +95,20 @@ function App() {
         <p>Loading...</p>
       )}
       {user === null ? (
-        <>
+        <div className='signed-out-screen'>
           <h1>Tucked Away</h1>
           <p>Your archive of random things</p>
           <button onClick={() => signIn()}>Sign In</button>
-        </>
+        </div>
       ) : (
-        <>
+        <div className='home-screen'>
           <Header query={query} setQuery={setQuery} setAddForm={setAddForm} setShowFavorites={setShowFavorites} setTagsList={setTagsList} tagsList={tagsList} noRepeatTags={noRepeatTags} setSelectedTag={setSelectedTag} selectedTag={selectedTag} setEditingId={setEditingId} />
-        <SavedItemGrid query={query} items={items} setItems={setItems} deleteItem={deleteItem} showFavorites={showFavorites} toggleFavorite={toggleFavorite} selectedTag={selectedTag} clearFilters={clearFilters} setEditingId={setEditingId} setAddForm={setAddForm} />
-        {addForm && (
-          <AddItemForm addItem={addItem} setAddForm={setAddForm} editingId={editingId} editingItem={editingItem} updateItem={updateItem} setEditingId={setEditingId} />
-        )}
-        </>
+          <SavedItemGrid query={query} items={items} setItems={setItems} deleteItem={deleteItem} showFavorites={showFavorites} toggleFavorite={toggleFavorite} selectedTag={selectedTag} clearFilters={clearFilters} setEditingId={setEditingId} setAddForm={setAddForm} />
+          {addForm && (
+            <AddItemForm addItem={addItem} setAddForm={setAddForm} editingId={editingId} editingItem={editingItem} updateItem={updateItem} setEditingId={setEditingId} />
+          )}
+          <button onClick={() => handleSignOut()}>Sign Out</button>
+        </div>
       )}
     </div>
   );

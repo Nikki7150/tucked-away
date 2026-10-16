@@ -4,7 +4,8 @@
     width: 100%;
     max-width: 1400px;
     margin: 20px auto;
-    columns: 250px;
+    column-width: 250px;
+    column-gap: 20px;
 }
 
 .saved-grid-container.empty-state {
