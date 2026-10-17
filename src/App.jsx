@@ -8,6 +8,7 @@ import { onAuthStateChanged, signInWithPopup, signOut } from 'firebase/auth';
 import { auth, googleProvider } from '../firebaseConfig.js';
 import ProfileModal from './components/ProfileModal.jsx';
 import { FaCircleUser } from "react-icons/fa6";
+import { DiLaravel } from 'react-icons/di';
 
 function App() {
   const [query, setQuery] = useState('');
@@ -40,6 +41,7 @@ function App() {
   const handleSignOut = async () => {
     try {
       await signOut(auth);
+      setProfileModal(false);
     } catch (error) {
       console.error('Error signing out: ', error);
     }
@@ -94,10 +96,11 @@ function App() {
 
   return (
     <div className='app-contents'>
-      {loading && (
-        <p>Loading...</p>
-      )}
-      {user === null ? (
+      {loading ? (
+        <div className='loading-page'>
+          <p className='loading-state'>Loading...</p>
+        </div>
+      ) : user === null ? (
         <div className='signed-out-screen'>
           <h1>Tucked Away</h1>
           <p>Your archive of random things</p>
@@ -105,11 +108,17 @@ function App() {
         </div>
       ) : (
         <div className='home-screen'>
-          <header className="header">
+          <div className="header">
             <p>Tucked Away</p>
             <Header query={query} setQuery={setQuery} setAddForm={setAddForm} setShowFavorites={setShowFavorites} setTagsList={setTagsList} tagsList={tagsList} noRepeatTags={noRepeatTags} setSelectedTag={setSelectedTag} selectedTag={selectedTag} setEditingId={setEditingId} />
-            <button className='open-profile' onClick={() => setProfileModal(true)} style={{ backgroundImage: `url(${user?.photoURL})`, backgroundSize: 'cover' }}></button>
-          </header>
+            {user.photoURL ? (
+              <button className='open-profile' onClick={() => setProfileModal(true)} style={{ backgroundImage: `url(${user?.photoURL})`, backgroundSize: 'cover' }} alt={`${user.displayName}'s profile picture to open profile`}></button>
+            ) : (
+              <button className='open-profile' onClick={() => setProfileModal(true)} >
+                <p className='fallback-open-profile-text'>{user.displayName.charAt(0) || user.email.charAt(0)}</p>
+              </button>
+            )}
+          </div>
           {profileModal && (
             <ProfileModal setProfileModal={setProfileModal} handleSignOut={handleSignOut} user={user} />
           )}
