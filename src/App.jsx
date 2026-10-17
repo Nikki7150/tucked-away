@@ -2,17 +2,17 @@ import { useEffect, useState } from 'react';
 import './App.css';
 import Header from './components/Header.jsx';
 import SavedItemGrid from './components/SavedItemGrid.jsx';
-import sampleItem from './data/sampleItems.js';
 import AddItemForm from './components/AddItemForm.jsx';
 import { onAuthStateChanged, signInWithPopup, signOut } from 'firebase/auth';
 import { auth, googleProvider } from '../firebaseConfig.js';
 import ProfileModal from './components/ProfileModal.jsx';
 import { FaCircleUser } from "react-icons/fa6";
 import { DiLaravel } from 'react-icons/di';
+import { subscribeToItems } from './userData.js';
 
 function App() {
   const [query, setQuery] = useState('');
-  const [items, setItems] = useState(sampleItem);
+  const [items, setItems] = useState([]);
   const [addForm, setAddForm] = useState(false);
   const [tagsList, setTagsList] = useState(false);
   const [showFavorites, setShowFavorites] = useState(false);
@@ -46,6 +46,12 @@ function App() {
       console.error('Error signing out: ', error);
     }
   };
+
+  useEffect(() => {
+    if (!user?.uid) return;
+    const unsubscribe = subscribeToItems(user.uid, setItems);
+    return () => unsubscribe();
+  }, [user?.uid]);
 
   const addItem = (title, tags, notes, imageUrl) => {
     const newItems = {
