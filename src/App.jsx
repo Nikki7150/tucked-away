@@ -8,7 +8,7 @@ import { auth, googleProvider } from '../firebaseConfig.js';
 import ProfileModal from './components/ProfileModal.jsx';
 import { FaCircleUser } from "react-icons/fa6";
 import { DiLaravel } from 'react-icons/di';
-import { subscribeToItems } from './userData.js';
+import { subscribeToItems, addCard, deleteCard, updateCard } from './userData.js';
 
 function App() {
   const [query, setQuery] = useState('');
@@ -53,27 +53,41 @@ function App() {
     return () => unsubscribe();
   }, [user?.uid]);
 
-  const addItem = (title, tags, notes, imageUrl) => {
+  const addItem = async (title, tags, notes, imageUrl) => {
     const newItems = {
-      id: Date.now(),
       title: title,
       tags: tags,
       notes: notes,
       image: imageUrl,
       favorite: false,
     };
-    setItems((prevItems) => [...prevItems, newItems]);
-    setAddForm(false);
-  };
-
-  const deleteItem = (id) => {
-    if (window.confirm("Are you sure you want to delete this card?")) {
-      setItems((prevItems) => prevItems.filter((item) => item.id !== id));
+    try {
+      await addCard(user.uid, newItems);
+      setAddForm(false);
+      return { success: true };
+    } catch (error) {
+      console.error("Error adding card: ", error);
+      return { success: false, error: error.message };
     }
   };
 
-  const toggleFavorite = (id) => {
-    setItems((prevItems) => prevItems.map((item) => item.id === id ? {...item, favorite: !item.favorite} : item));
+  const deleteItem = async (id) => {
+    if (window.confirm("Are you sure you want to delete this card?")) {
+      try {
+        await deleteCard(user.uid, id);
+      } catch (error) {
+        console.error("Error deleting card: ", error);
+      }
+    }
+  };
+
+  const toggleFavorite = async (id) => {
+    try {
+      const item = items.find((item) => item.id === id);
+      await updateCard(user.uid, id, { favorite: !item.favorite });
+    } catch (error) {
+      console.error("Error toggling favorite card: ", error);
+    }
   };
 
   const allTags = items.flatMap(item => item.tags || []);
@@ -87,17 +101,14 @@ function App() {
 
   const editingItem = items.find(item => item.id === editingId);
 
-  const updateItem = (title, notes, tags, imageUrl) => {
-    setItems((prevItems) => prevItems.map((item) => 
-      item.id === editingId ? {
-        ...item, 
-        notes: notes, 
-        title: title, 
-        image: imageUrl, 
-        tags: tags
-      } : item));
-    setAddForm(false);
-    setEditingId(null);
+  const updateItem = async (title, notes, tags, imageUrl) => {
+    try {
+      await updateCard(user.uid, editingId, {title, notes, tags, image: imageUrl});
+      setAddForm(false);
+      setEditingId(null);
+    } catch (error) {
+      console.error("Error updating card: ", error);
+    }
   }
 
   return (

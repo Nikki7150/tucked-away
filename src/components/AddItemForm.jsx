@@ -11,7 +11,7 @@ const AddItemForm = ({ addItem, setAddForm, editingId, editingItem, updateItem, 
         return typeof tag === 'string' && tag.trim().length > 0;
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         const separatedTags = tags.split(',').map((tag) => {
             return tag.trim().toLowerCase();
@@ -19,12 +19,16 @@ const AddItemForm = ({ addItem, setAddForm, editingId, editingItem, updateItem, 
         if (editingId) {
             updateItem(title, notes, separatedTags, imageUrl)
         } else {
-            addItem(title, separatedTags, notes, imageUrl);
+            const result = await addItem(title, separatedTags, notes, imageUrl);
+            if (result.success) {
+                setTitle('');
+                setTags('');
+                setNotes('');
+                setImageUrl('');
+            } else {
+                console.error("Failed to submit card: ", result.error);
+            }
         }
-        setTitle('');
-        setTags('');
-        setNotes('');
-        setImageUrl('');
     };
 
     useEffect(() => {
