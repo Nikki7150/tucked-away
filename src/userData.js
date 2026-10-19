@@ -17,14 +17,10 @@ export const addCard = async (uid, data) => {
     await addDoc(collectionRef, {...data, createdAt: serverTimestamp()});
 };
 
-export const updateCard = async (uid, data) => {
+export const updateCard = async (uid, id, data) => {
     await updateDoc(doc(db, 'users', uid, 'items', id), data);
 };
 
-export const deleteCard = async (uid, data) => {
+export const deleteCard = async (uid, id) => {
     await deleteDoc(doc(db, 'users', uid, 'items', id));
-};
-
-export const toggleFavoriteCard = async () => {
-
 };

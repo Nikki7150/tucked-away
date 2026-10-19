@@ -1,11 +1,15 @@
 import { useEffect, useState } from 'react';
 import '../styles/AddItemForm.css'
+import { cleanUrl } from '../utils/url';
+import { CiCircleCheck } from "react-icons/ci";
+import { RxCrossCircled } from "react-icons/rx";
 
 const AddItemForm = ({ addItem, setAddForm, editingId, editingItem, updateItem, setEditingId }) => {
     const [title, setTitle] = useState('');
     const [notes, setNotes] = useState('');
     const [tags, setTags] = useState('');
     const [imageUrl, setImageUrl] = useState('');
+    const [destinationUrl, setDestinationUrl] = useState('');
 
     const checkTag = (tag) => {
         return typeof tag === 'string' && tag.trim().length > 0;
@@ -13,18 +17,20 @@ const AddItemForm = ({ addItem, setAddForm, editingId, editingItem, updateItem, 
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        if (destinationUrl.trim() && !cleanedUrl) return;
         const separatedTags = tags.split(',').map((tag) => {
             return tag.trim().toLowerCase();
         }).filter(checkTag);
         if (editingId) {
-            updateItem(title, notes, separatedTags, imageUrl)
+            updateItem({ title, tags: separatedTags, destination: cleanedUrl || '', notes, image: imageUrl });
         } else {
-            const result = await addItem(title, separatedTags, notes, imageUrl);
+            const result = await addItem({ title, tags: separatedTags, destination: cleanedUrl || '', notes, image: imageUrl });
             if (result.success) {
                 setTitle('');
                 setTags('');
                 setNotes('');
                 setImageUrl('');
+                setDestinationUrl('');
             } else {
                 console.error("Failed to submit card: ", result.error);
             }
@@ -37,13 +43,17 @@ const AddItemForm = ({ addItem, setAddForm, editingId, editingItem, updateItem, 
             setNotes(editingItem.notes);
             setTags(editingItem.tags.join(', '));
             setImageUrl(editingItem.image || '');
+            setDestinationUrl(editingItem.destination || '');
         } else {
             setTitle('');
             setTags('');
             setNotes('');
             setImageUrl('');
+            setDestinationUrl('');
         }
     }, [editingItem]);
+
+    const cleanedUrl = cleanUrl(destinationUrl);
 
     return (
         <div className='add-form-container'>
@@ -62,6 +72,17 @@ const AddItemForm = ({ addItem, setAddForm, editingId, editingItem, updateItem, 
                     value={tags}
                     onChange={(e) => setTags(e.target.value)}
                 />
+                <div className='url-div'>
+                    <input
+                        type='text'
+                        placeholder='Add Destination Url...'
+                        value={destinationUrl}
+                        onChange={(e) => setDestinationUrl(e.target.value)}
+                    />
+                    {destinationUrl && (
+                        <p className='url-checking'>{cleanedUrl ? <CiCircleCheck /> : <RxCrossCircled />}</p>
+                    )}
+                </div>
                 <input
                     type='text'
                     placeholder='Add notes...'

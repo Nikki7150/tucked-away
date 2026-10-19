@@ -6,8 +6,6 @@ import AddItemForm from './components/AddItemForm.jsx';
 import { onAuthStateChanged, signInWithPopup, signOut } from 'firebase/auth';
 import { auth, googleProvider } from '../firebaseConfig.js';
 import ProfileModal from './components/ProfileModal.jsx';
-import { FaCircleUser } from "react-icons/fa6";
-import { DiLaravel } from 'react-icons/di';
 import { subscribeToItems, addCard, deleteCard, updateCard } from './userData.js';
 
 function App() {
@@ -48,17 +46,14 @@ function App() {
   };
 
   useEffect(() => {
-    if (!user?.uid) return;
+    if (!user?.uid) { setItems([]); return; }
     const unsubscribe = subscribeToItems(user.uid, setItems);
     return () => unsubscribe();
   }, [user?.uid]);
 
-  const addItem = async (title, tags, notes, imageUrl) => {
+  const addItem = async (data) => {
     const newItems = {
-      title: title,
-      tags: tags,
-      notes: notes,
-      image: imageUrl,
+      ...data,
       favorite: false,
     };
     try {
@@ -101,9 +96,9 @@ function App() {
 
   const editingItem = items.find(item => item.id === editingId);
 
-  const updateItem = async (title, notes, tags, imageUrl) => {
+  const updateItem = async (data) => {
     try {
-      await updateCard(user.uid, editingId, {title, notes, tags, image: imageUrl});
+      await updateCard(user.uid, editingId, data);
       setAddForm(false);
       setEditingId(null);
     } catch (error) {
@@ -132,7 +127,7 @@ function App() {
               <button className='open-profile' onClick={() => setProfileModal(true)} style={{ backgroundImage: `url(${user?.photoURL})`, backgroundSize: 'cover' }} alt={`${user.displayName}'s profile picture to open profile`}></button>
             ) : (
               <button className='open-profile' onClick={() => setProfileModal(true)} >
-                <p className='fallback-open-profile-text'>{user.displayName.charAt(0) || user.email.charAt(0)}</p>
+                <p className='fallback-open-profile-text'>{user.displayName?.charAt(0) || user.email.charAt(0)}</p>
               </button>
             )}
           </div>

@@ -27,3 +27,15 @@
 input {
     padding: 10px;
 }
+
+.url-div {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+}
+
+.url-div input {
+    width: 100%;
+}
