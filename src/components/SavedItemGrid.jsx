@@ -28,6 +28,7 @@ const SavedItemGrid = ({ query, items, deleteItem, showFavorites, toggleFavorite
                     tags={item.tags}
                     notes={item.notes}
                     image={item.image}
+                    destination={item.destination}
                     deleteItem={deleteItem}
                     favorite={item.favorite}
                     toggleFavorite={toggleFavorite}

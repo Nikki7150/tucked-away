@@ -63,3 +63,12 @@
     cursor: pointer;
 }
 
+.destination-link {
+    text-decoration: none;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: rgb(248, 72, 160);
+    display: block;
+    max-width: 100%;
+}
