@@ -19,6 +19,9 @@ function App() {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [profileModal, setProfileModal] = useState(false);
+  const [itemsLoading, setItemsLoading] = useState(true);
+  const [error, setError] = useState('');
+  const [saveError, setSaveError] = useState('');
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (firebaseUser) => {
@@ -46,8 +49,13 @@ function App() {
   };
 
   useEffect(() => {
-    if (!user?.uid) { setItems([]); return; }
-    const unsubscribe = subscribeToItems(user.uid, setItems);
+    if (!user?.uid) { setItems([]); setItemsLoading(true); return; }
+    setError('');
+    const unsubscribe = subscribeToItems(
+      user.uid, 
+      (data) => { setItems(data); setItemsLoading(false); },
+      () => { setError("Couldn't load your cards. Try refreshing." ); setItemsLoading(false); }
+    );
     return () => unsubscribe();
   }, [user?.uid]);
 
@@ -62,6 +70,7 @@ function App() {
       return { success: true };
     } catch (error) {
       console.error("Error adding card: ", error);
+      setSaveError("Couldn't save that. Try again.");
       return { success: false, error: error.message };
     }
   };
@@ -72,6 +81,7 @@ function App() {
         await deleteCard(user.uid, id);
       } catch (error) {
         console.error("Error deleting card: ", error);
+        setSaveError("Couldn't save that. Try again.");
       }
     }
   };
@@ -82,6 +92,7 @@ function App() {
       await updateCard(user.uid, id, { favorite: !item.favorite });
     } catch (error) {
       console.error("Error toggling favorite card: ", error);
+      setSaveError("Couldn't save that. Try again.");
     }
   };
 
@@ -103,12 +114,21 @@ function App() {
       setEditingId(null);
     } catch (error) {
       console.error("Error updating card: ", error);
+      setSaveError("Couldn't save that. Try again.");
     }
   }
 
+  useEffect(() => {
+    if (!saveError) return;
+    const timer = setTimeout(() => setSaveError(''), 4000);
+    return () => clearTimeout(timer);
+  }, [saveError])
+
+  const showLoading = loading || (user && itemsLoading);
+
   return (
     <div className='app-contents'>
-      {loading ? (
+      {showLoading ? (
         <div className='loading-page'>
           <p className='loading-state'>Loading...</p>
         </div>
@@ -134,9 +154,19 @@ function App() {
           {profileModal && (
             <ProfileModal setProfileModal={setProfileModal} handleSignOut={handleSignOut} user={user} />
           )}
-          <SavedItemGrid query={query} items={items} setItems={setItems} deleteItem={deleteItem} showFavorites={showFavorites} toggleFavorite={toggleFavorite} selectedTag={selectedTag} clearFilters={clearFilters} setEditingId={setEditingId} setAddForm={setAddForm} />
+          {error ? (
+            <p className='load-error'>{error}</p>
+          ) : (
+            <SavedItemGrid query={query} items={items} setItems={setItems} deleteItem={deleteItem} showFavorites={showFavorites} toggleFavorite={toggleFavorite} selectedTag={selectedTag} clearFilters={clearFilters} setEditingId={setEditingId} setAddForm={setAddForm} itemsLoading={itemsLoading} />
+          )}
           {addForm && (
             <AddItemForm addItem={addItem} setAddForm={setAddForm} editingId={editingId} editingItem={editingItem} updateItem={updateItem} setEditingId={setEditingId} />
+          )}
+          {saveError && (
+            <div className='save-error' role='alert'>
+              <p>{saveError}</p>
+              <button onClick={() => setSaveError('')} aria-label='dismiss'>×</button>
+            </div>
           )}
         </div>
       )}

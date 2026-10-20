@@ -1,7 +1,7 @@
 import '../styles/SavedItem.css'
 import SavedItemCard from './SavedItemCard';
 
-const SavedItemGrid = ({ query, items, deleteItem, showFavorites, toggleFavorite, selectedTag, clearFilters, setEditingId, setAddForm }) => {
+const SavedItemGrid = ({ query, items, deleteItem, showFavorites, toggleFavorite, selectedTag, clearFilters, setEditingId, setAddForm, itemsLoading }) => {
     const filteredItems = items.filter(item => {
         return item.title.toLowerCase().includes(query.toLowerCase()) || 
         item.tags.some(tag => tag.toLowerCase().includes(query.toLowerCase())) ||
@@ -36,7 +36,7 @@ const SavedItemGrid = ({ query, items, deleteItem, showFavorites, toggleFavorite
                     setAddForm={setAddForm}
                 />
             ))}
-            {isEmpty && (
+            {isEmpty && !itemsLoading && (
                 <div className="empty-state-div">
                     <h2 className="empty-text">{message}</h2>
                     {filtersActive && items.length !== 0 && (

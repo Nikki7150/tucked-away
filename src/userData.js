@@ -1,13 +1,14 @@
 import { doc, setDoc, deleteDoc, getDocs, collection, onSnapshot, addDoc, updateDoc, serverTimestamp } from "firebase/firestore";
 import { db } from "../firebaseConfig";
 
-export const subscribeToItems = (uid, callbackFn) => {
+export const subscribeToItems = (uid, callbackFn, onError) => {
     const userCollectionRef = collection(db, 'users', uid, 'items');
     const unsubscribe = onSnapshot(userCollectionRef, (querySnapshot) => {
         const items = querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
         callbackFn(items);
     }, (error) => {
         console.error("Error listening to items: ", error);
+        onError(error);
     });
     return unsubscribe;
 };
