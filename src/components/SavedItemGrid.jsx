@@ -2,13 +2,17 @@ import '../styles/SavedItem.css'
 import SavedItemCard from './SavedItemCard';
 
 const SavedItemGrid = ({ query, items, deleteItem, showFavorites, toggleFavorite, selectedTag, clearFilters, setEditingId, setAddForm, itemsLoading }) => {
+    const search = query.toLowerCase();
     const filteredItems = items.filter(item => {
-        return item.title.toLowerCase().includes(query.toLowerCase()) || 
-        item.tags.some(tag => tag.toLowerCase().includes(query.toLowerCase())) ||
-        item.notes.toLowerCase().includes(query.toLowerCase())
+        const title = (item.title || '').toLowerCase();
+        const notes = (item.notes || '').toLowerCase();
+        const tags = item.tags || [];
+        return title.includes(search) ||
+            notes.includes(search) ||
+            tags.some(tag => tag.toLowerCase().includes(search));
     })
     .filter((item) => !showFavorites || item.favorite)
-    .filter((item) => !selectedTag || item.tags.includes(selectedTag));
+    .filter((item) => !selectedTag || (item.tags || []).includes(selectedTag));
 
     const isEmpty = filteredItems.length === 0;
 
