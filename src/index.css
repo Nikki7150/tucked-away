@@ -1,10 +1,17 @@
 :root {
     margin: 0;
     padding: 0;
+
+    --white: #f9f9f9;
+    --warm-fog: #ddd3c9;
+    --berry-good: #ecc4c3;
+    --blossom: #b97d7b;
+    --meadow-mauve: #928e5e;
+    --soldier-green: #575527;
 }
 
 html {
-    background-color: #f9f9f9;
+    background-color: var(--white);
     background-image: radial-gradient(rgb(189, 189, 189) 2px, transparent 2px);
     background-size: 24px 24px;
 }

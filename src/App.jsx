@@ -22,6 +22,7 @@ function App() {
   const [itemsLoading, setItemsLoading] = useState(true);
   const [error, setError] = useState('');
   const [saveError, setSaveError] = useState('');
+  const [sortOrder, setSortOrder] = useState('newest');
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (firebaseUser) => {
@@ -126,6 +127,8 @@ function App() {
 
   const showLoading = loading || (user && itemsLoading);
 
+
+
   return (
     <div className='app-contents'>
       {showLoading ? (
@@ -157,7 +160,10 @@ function App() {
           {error ? (
             <p className='load-error'>{error}</p>
           ) : (
-            <SavedItemGrid query={query} items={items} setItems={setItems} deleteItem={deleteItem} showFavorites={showFavorites} toggleFavorite={toggleFavorite} selectedTag={selectedTag} clearFilters={clearFilters} setEditingId={setEditingId} setAddForm={setAddForm} itemsLoading={itemsLoading} />
+            <div>
+              <button onClick={() => setSortOrder((sortOrder === 'newest' ? 'oldest' : 'newest'))}>{sortOrder === 'newest' ? 'Sorted: Newest first' : 'Sorted: Oldest first'}</button>
+              <SavedItemGrid query={query} items={items} setItems={setItems} deleteItem={deleteItem} showFavorites={showFavorites} toggleFavorite={toggleFavorite} selectedTag={selectedTag} clearFilters={clearFilters} setEditingId={setEditingId} setAddForm={setAddForm} itemsLoading={itemsLoading} sortOrder={sortOrder} />
+            </div>
           )}
           {addForm && (
             <AddItemForm addItem={addItem} setAddForm={setAddForm} editingId={editingId} editingItem={editingItem} updateItem={updateItem} setEditingId={setEditingId} />

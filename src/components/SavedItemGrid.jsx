@@ -1,7 +1,7 @@
 import '../styles/SavedItem.css'
 import SavedItemCard from './SavedItemCard';
 
-const SavedItemGrid = ({ query, items, deleteItem, showFavorites, toggleFavorite, selectedTag, clearFilters, setEditingId, setAddForm, itemsLoading }) => {
+const SavedItemGrid = ({ query, items, deleteItem, showFavorites, toggleFavorite, selectedTag, clearFilters, setEditingId, setAddForm, itemsLoading, sortOrder }) => {
     const search = query.toLowerCase();
     const filteredItems = items.filter(item => {
         const title = (item.title || '').toLowerCase();
@@ -14,6 +14,15 @@ const SavedItemGrid = ({ query, items, deleteItem, showFavorites, toggleFavorite
     .filter((item) => !showFavorites || item.favorite)
     .filter((item) => !selectedTag || (item.tags || []).includes(selectedTag));
 
+    const getTime = (item) => {
+        if (item.createdAt === null) return Date.now();
+        return item.createdAt?.toMillis?.() ?? 0;
+    }
+
+    const sortedItems = [...filteredItems].sort((a, b) => 
+        sortOrder === 'newest' ? getTime(b) - getTime(a) : getTime(a) - getTime(b)
+    );
+
     const isEmpty = filteredItems.length === 0;
 
     const message = items.length === 0 ? "Nothing saved yet" :
@@ -24,7 +33,7 @@ const SavedItemGrid = ({ query, items, deleteItem, showFavorites, toggleFavorite
 
     return (
         <div className={`saved-grid-container${isEmpty ? ' empty-state' : ''}`}>
-            {filteredItems.map((item) => (
+            {sortedItems.map((item) => (
                 <SavedItemCard 
                     key={item.id}
                     id={item.id}
