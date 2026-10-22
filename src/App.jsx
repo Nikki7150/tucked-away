@@ -6,7 +6,7 @@ import AddItemForm from './components/AddItemForm.jsx';
 import { onAuthStateChanged, signInWithPopup, signOut } from 'firebase/auth';
 import { auth, googleProvider } from '../firebaseConfig.js';
 import ProfileModal from './components/ProfileModal.jsx';
-import { subscribeToItems, addCard, deleteCard, updateCard } from './userData.js';
+import { subscribeToItems, addCard, deleteCard, updateCard, getPreferences, savePreferences } from './userData.js';
 import { IoIosArrowDown } from "react-icons/io";
 
 function App() {
@@ -24,6 +24,7 @@ function App() {
   const [error, setError] = useState('');
   const [saveError, setSaveError] = useState('');
   const [sortOrder, setSortOrder] = useState('newest');
+  const [prefsLoading, setPrefsLoading] = useState(false);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (firebaseUser) => {
@@ -126,9 +127,31 @@ function App() {
     return () => clearTimeout(timer);
   }, [saveError])
 
-  const showLoading = loading || (user && itemsLoading);
+  const showLoading = loading || (user && (itemsLoading || prefsLoading));
 
+  useEffect(() => {
+    if (!user?.uid) { setPrefsLoading(true); return; }
+    let cancelled = false;
+    getPreferences(user.uid)
+      .then((prefs) => {
+        if (cancelled) return;
+        setSortOrder(prefs.sortOrder === 'oldest' ? 'oldest' : 'newest');
+      })
+      .catch((error) => console.error("Error loading preferences: ", error))
+      .finally(() => { if (!cancelled) setPrefsLoading(false); });
+    return () => { cancelled = true; };
+  }, [user?.uid]);
 
+  const toggleSortOrder = async () => {
+    const next = sortOrder === 'newest' ? 'oldest' : 'newest';
+    setSortOrder(next);
+    try {
+      await savePreferences(user.uid, { sortOrder: next });
+    } catch (error) {
+      console.error("Error saving preferences: ", error);
+      setSaveError("Couldn't save that. Try again.");
+    }
+  };
 
   return (
     <div className='app-contents'>
@@ -163,7 +186,7 @@ function App() {
           ) : (
             <div>
               <div className='sorting-button-container'>
-                <button onClick={() => setSortOrder((sortOrder === 'newest' ? 'oldest' : 'newest'))} className='sorting-button'>{sortOrder === 'newest' ? 'Sorted: Newest first' : 'Sorted: Oldest first'} <IoIosArrowDown style={{ marginLeft: '10px', }}/></button>
+                <button onClick={() => toggleSortOrder()} className='sorting-button'>{sortOrder === 'newest' ? 'Sorted: Newest first' : 'Sorted: Oldest first'} <IoIosArrowDown style={{ marginLeft: '10px', }}/></button>
               </div>
               <SavedItemGrid query={query} items={items} setItems={setItems} deleteItem={deleteItem} showFavorites={showFavorites} toggleFavorite={toggleFavorite} selectedTag={selectedTag} clearFilters={clearFilters} setEditingId={setEditingId} setAddForm={setAddForm} itemsLoading={itemsLoading} sortOrder={sortOrder} />
             </div>

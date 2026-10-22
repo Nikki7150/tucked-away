@@ -1,4 +1,4 @@
-import { doc, setDoc, deleteDoc, getDocs, collection, onSnapshot, addDoc, updateDoc, serverTimestamp } from "firebase/firestore";
+import { doc, setDoc, deleteDoc, getDoc, collection, onSnapshot, addDoc, updateDoc, serverTimestamp } from "firebase/firestore";
 import { db } from "../firebaseConfig";
 
 export const subscribeToItems = (uid, callbackFn, onError) => {
@@ -25,3 +25,12 @@ export const updateCard = async (uid, id, data) => {
 export const deleteCard = async (uid, id) => {
     await deleteDoc(doc(db, 'users', uid, 'items', id));
 };
+
+export const getPreferences = async (uid) => {
+    const snap = await getDoc(doc(db, 'users', uid, 'settings', 'preferences'));
+    return snap.exists() ? snap.data(): {};
+}
+
+export const savePreferences = async (uid, prefs) => {
+    await setDoc(doc(db, 'users', uid, 'settings', 'preferences'), prefs, { merge: true });
+}
