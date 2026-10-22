@@ -77,3 +77,20 @@
     flex-direction: row;
     gap: 20px;
 }
+
+.sorting-button-container {
+    width: 100%;
+    max-width: 1400px;
+    margin: 20px auto 0;
+    padding: 0 50px;
+    box-sizing: border-box;
+    text-align: right;
+}
+
+.sorting-button {
+    display: inline-flex;
+    background-color: var(--white);
+    box-shadow: 0px 4px 7px rgba(0, 0, 0, 0.2);
+    border: 1px solid black;
+    border-radius: 10px;
+}

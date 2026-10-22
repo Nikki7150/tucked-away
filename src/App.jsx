@@ -7,6 +7,7 @@ import { onAuthStateChanged, signInWithPopup, signOut } from 'firebase/auth';
 import { auth, googleProvider } from '../firebaseConfig.js';
 import ProfileModal from './components/ProfileModal.jsx';
 import { subscribeToItems, addCard, deleteCard, updateCard } from './userData.js';
+import { IoIosArrowDown } from "react-icons/io";
 
 function App() {
   const [query, setQuery] = useState('');
@@ -161,7 +162,9 @@ function App() {
             <p className='load-error'>{error}</p>
           ) : (
             <div>
-              <button onClick={() => setSortOrder((sortOrder === 'newest' ? 'oldest' : 'newest'))}>{sortOrder === 'newest' ? 'Sorted: Newest first' : 'Sorted: Oldest first'}</button>
+              <div className='sorting-button-container'>
+                <button onClick={() => setSortOrder((sortOrder === 'newest' ? 'oldest' : 'newest'))} className='sorting-button'>{sortOrder === 'newest' ? 'Sorted: Newest first' : 'Sorted: Oldest first'} <IoIosArrowDown style={{ marginLeft: '10px', }}/></button>
+              </div>
               <SavedItemGrid query={query} items={items} setItems={setItems} deleteItem={deleteItem} showFavorites={showFavorites} toggleFavorite={toggleFavorite} selectedTag={selectedTag} clearFilters={clearFilters} setEditingId={setEditingId} setAddForm={setAddForm} itemsLoading={itemsLoading} sortOrder={sortOrder} />
             </div>
           )}
