@@ -8,6 +8,7 @@ import { auth, googleProvider } from '../firebaseConfig.js';
 import ProfileModal from './components/ProfileModal.jsx';
 import { subscribeToItems, addCard, deleteCard, updateCard, getPreferences, savePreferences } from './userData.js';
 import { IoIosArrowDown } from "react-icons/io";
+import AuthForm from './components/AuthForm.jsx';
 
 function App() {
   const [query, setQuery] = useState('');
@@ -161,9 +162,7 @@ function App() {
         </div>
       ) : user === null ? (
         <div className='signed-out-screen'>
-          <h1>Tucked Away</h1>
-          <p>Your archive of random things</p>
-          <button onClick={() => signIn()}>Sign In</button>
+          <AuthForm signIn={signIn} onProfileUpdated={() => setUser({ ...auth.currentUser })} />
         </div>
       ) : (
         <div className='home-screen'>

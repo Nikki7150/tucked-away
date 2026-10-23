@@ -8,7 +8,7 @@ const ProfileModal = ({ setProfileModal, handleSignOut, user }) => {
                     <img src={user.photoURL} referrerPolicy='no-referrer' className='profile-picture' alt={`${user.displayName}'s profile picture`} />
                 ) : (
                     <div className='profile-picture'>
-                        <p className='fallback-profile-text'>{user.displayName.charAt(0)}</p>
+                        <p className='fallback-profile-text'>{user.displayName.charAt(0) || email.charAt(0)}</p>
                     </div>
                 )}
                 <h2>{user.displayName}</h2>
