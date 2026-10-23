@@ -25,7 +25,7 @@ const SavedItemGrid = ({ query, items, deleteItem, showFavorites, toggleFavorite
 
     const isEmpty = filteredItems.length === 0;
 
-    const message = items.length === 0 ? "Nothing saved yet" :
+    const message = items.length === 0 ? "Tuck away your first thing" :
                     showFavorites? "No favorites" :
                     "Nothing matches your search";
 
@@ -52,6 +52,9 @@ const SavedItemGrid = ({ query, items, deleteItem, showFavorites, toggleFavorite
             {isEmpty && !itemsLoading && (
                 <div className="empty-state-div">
                     <h2 className="empty-text">{message}</h2>
+                    {items.length === 0 && (
+                        <button onClick={() => setAddForm(true)} className='open-add'>+</button>
+                    )}
                     {filtersActive && items.length !== 0 && (
                         <button onClick={clearFilters} className='clear-filters'>Clear Filters</button>
                     )}
