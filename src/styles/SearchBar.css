@@ -7,3 +7,14 @@ p {
     flex-direction: row;
     gap: 10px;
 }
+
+.search-bar {
+    background-color: var(--warm-fog);
+    border: 1px solid var(--soldier-green);
+    width: 250px;
+}
+
+.filter-button.true {
+    background-color: var(--blossom);
+    border: 1px solid var(--soldier-green);
+}

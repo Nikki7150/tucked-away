@@ -30,7 +30,7 @@
     width: 60px;
     border-radius: 50%;
     border: 1px solid black;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 4px 10px var(--soldier-green);
 }
 
 .fallback-open-profile-text {
@@ -55,9 +55,9 @@
 
 .load-error {
     padding: 20px;
-    border: 1px rgb(185, 57, 57) solid;
+    border: 1px var(--berry-good) solid;
     border-radius: 10px;
-    background-color: rgba(179, 38, 38, 0.737);
+    background-color: var(--blossom);
     position: fixed;
     z-index: 1010;
     top: 10px;
@@ -66,9 +66,9 @@
 
 .save-error {
     padding: 20px;
-    border: 1px rgb(237, 150, 150) solid;
+    border: 1px var(--berry-good) solid;
     border-radius: 10px;
-    background-color: rgba(179, 38, 38, 0.737);
+    background-color: var(--blossom);
     position: fixed;
     z-index: 1010;
     top: 10px;
@@ -94,4 +94,11 @@
     border: 1px solid black;
     border-radius: 10px;
     cursor: pointer;
+}
+
+.logo {
+    display: block;
+    width: 230px;
+    height: auto;
+    margin-top: 20px;
 }

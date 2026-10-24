@@ -11,8 +11,9 @@ const SearchBar = ({ query, setQuery, setTagsList, tagsList, noRepeatTags, selec
                     placeholder='search for cards...'
                     value={query}
                     onChange={(e) => setQuery(e.target.value)}
+                    className='search-bar'
                 />
-                <button onClick={() => setTagsList(!tagsList)}><IoFilter /></button>
+                <button onClick={() => setTagsList(!tagsList)} className={`filter-button ${selectedTag ? 'true' : ''}`}><IoFilter /></button>
             </div>
             {tagsList && <TagsList noRepeatTags={noRepeatTags} setSelectedTag={setSelectedTag} selectedTag={selectedTag} />}
         </div>

@@ -167,8 +167,8 @@ function App() {
       ) : (
         <div className='home-screen'>
           <div className="header">
-            <p>Tucked Away</p>
-            <Header query={query} setQuery={setQuery} setAddForm={setAddForm} setShowFavorites={setShowFavorites} setTagsList={setTagsList} tagsList={tagsList} noRepeatTags={noRepeatTags} setSelectedTag={setSelectedTag} selectedTag={selectedTag} setEditingId={setEditingId} />
+            <img src="/src/assets/tucked-away-logo.png" alt="Tucked Away logo" className="logo" />
+            <Header query={query} setQuery={setQuery} setAddForm={setAddForm} setShowFavorites={setShowFavorites} setTagsList={setTagsList} tagsList={tagsList} noRepeatTags={noRepeatTags} setSelectedTag={setSelectedTag} selectedTag={selectedTag} setEditingId={setEditingId} showFavorites={showFavorites} />
             {user.photoURL ? (
               <button className='open-profile' onClick={() => setProfileModal(true)} style={{ backgroundImage: `url(${user?.photoURL})`, backgroundSize: 'cover' }} alt={`${user.displayName}'s profile picture to open profile`}></button>
             ) : (
