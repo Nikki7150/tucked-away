@@ -178,7 +178,7 @@ function App() {
             )}
           </div>
           {profileModal && (
-            <ProfileModal setProfileModal={setProfileModal} handleSignOut={handleSignOut} user={user} />
+            <ProfileModal setProfileModal={setProfileModal} handleSignOut={handleSignOut} user={user} items={items} />
           )}
           {error ? (
             <p className='load-error'>{error}</p>

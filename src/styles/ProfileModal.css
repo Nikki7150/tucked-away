@@ -9,27 +9,35 @@
 }
 
 .profile-modal {
-    background-color: rgba(224, 153, 165);
-    width: 35%;
+    background-color: var(--meadow-mauve);
+    width: 25%;
     height: 100%;
     position: fixed;
     top: 0;
     right: 0;
     border-top-left-radius: 30px;
     border-bottom-left-radius: 30px;
-    justify-content: center;
     padding: 50px;
     text-align: center;
     display: flex;
     flex-direction: column;
-    gap: 30px;
+    align-items: center;
+    justify-content: start;
+    gap: 20px;
+    font-family: 'Loved By the King', cursive;
+    font-size: 25px;
+}
+
+.modal-head {
+    font-family: 'Loved By the King', cursive;
+    font-size: 25px;
 }
 
 .profile-picture {
-    height: 120px;
-    width: 120px;
+    height: 150px;
+    width: 150px;
     border-radius: 50%;
-    border: 1px solid black;
+    border: 10px double var(--soldier-green);
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
     display: flex;
     align-items: center;
@@ -40,4 +48,54 @@
 .fallback-profile-text {
     font-size: 70px;
     text-align: center;
+    font-family: 'Homemade Apple', cursive;
+}
+
+.profile-name {
+    font-family: 'Homemade Apple', cursive;
+    text-decoration: underline;
+    text-decoration-color: var(--soldier-green);
+    text-decoration-thickness: 2px;
+    text-underline-offset: 10px;
+    font-size: 24px;
+}
+
+.stats-div {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+.stats-card {
+    background-color: var(--berry-good);
+    padding: 20px;
+    width: 190px;
+    border-radius: 20px;
+    border-width: 4px;
+    border-style: inset;
+    border-color: var(--berry-good);
+    font-family: 'Loved By the King', cursive;
+    font-size: 30px;
+}
+
+.sign-out-button {
+    font-family: 'Homemade apple', cursive;
+    font-size: 20px;
+    padding: 10px 20px;
+    border-radius: 20px;
+    background-color: transparent;
+    border-width: 4px;
+    border-style: inset;
+    border-color: var(--meadow-mauve);
+}
+
+.close-button {
+    font-family: 'Loved By the King', cursive;
+    font-size: 20px;
+    padding: 10px 20px;
+    border-radius: 20px;
+    background-color: transparent;
+    border-width: 2px;
+    border-style: inset;
+    border-color: var(--soldier-green);
 }
