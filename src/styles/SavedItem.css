@@ -34,7 +34,10 @@
     background-color: white;
     padding: 15px;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    transform: perspective(1000px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)) scale(var(--scale, 1));
+    transition: transform 0.15s ease-out;
 }
+
 
 .dynamic-img {
     display: block;

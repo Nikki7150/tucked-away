@@ -9,8 +9,24 @@ const SavedItemCard = ({ id, title, tags, notes, destination, image, deleteItem,
     useEffect(() => {
         setImageFailed(false);
     },[image]);
+
+    const handleMove = (e) => {
+        const rect = e.currentTarget.getBoundingClientRect();
+        const x = (e.clientX - rect.left) / rect.width - 0.5;
+        const y = (e.clientY - rect.top) / rect.height - 0.5;
+        e.currentTarget.style.setProperty('--ry', `${x * 20}deg`);
+        e.currentTarget.style.setProperty('--rx', `${-y * 20}deg`);
+        e.currentTarget.style.setProperty('--scale', '1.02');
+    }
+
+    const handleLeave = (e) => {
+        e.currentTarget.style.setProperty('--ry', '0deg');
+        e.currentTarget.style.setProperty('--rx', '0deg');
+        e.currentTarget.style.setProperty('--scale', '1');
+    }
+
     return (
-        <div className="saved-card-container">
+        <div className="saved-card-container" onMouseMove={handleMove} onMouseLeave={handleLeave}>
             {image && !imageFailed && (
                 <img src={image} alt={title} onError={() => setImageFailed(true)} />
             )}
