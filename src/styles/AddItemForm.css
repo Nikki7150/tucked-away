@@ -9,9 +9,9 @@
 }
 
 .add-form {
-    width: 400px;
+    width: 500px;
     height: auto;
-    background-color: antiquewhite;
+    background-color: var(--meadow-mauve);
     border-radius: 20px;
     padding: 20px;
     position: relative;
@@ -24,8 +24,23 @@
     gap: 20px;
 }
 
+.heading {
+    font-family: 'Homemade Apple', cursive;
+    color: var(--warm-fog);
+    height: 50px;
+}
+
 input {
     padding: 10px;
+    background-color: transparent;
+    border: none;
+    border-bottom: 2px solid var(--berry-good);
+}
+
+input::placeholder {
+    color: var(--soldier-green);
+    font-family: 'Crafty Girls', cursive;
+    font-size: 15px;
 }
 
 .url-div {
@@ -38,4 +53,39 @@ input {
 
 .url-div input {
     width: 100%;
+}
+
+.card-color {
+    padding: 10px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background-color: var(--soldier-green);
+    border: 0cap;
+}
+
+.swatch {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 2px outset rgba(54, 53, 53, 0.764);
+}
+
+.heading-container {
+    position: inherit;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.color-picker {
+    position: relative;
+    padding: 10px;
+    background-color: var(--warm-fog);
+    width: 100px;
 }

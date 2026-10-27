@@ -3,6 +3,8 @@ import '../styles/AddItemForm.css'
 import { cleanUrl } from '../utils/url';
 import { CiCircleCheck } from "react-icons/ci";
 import { RxCrossCircled } from "react-icons/rx";
+import PALETTE, { getColorIndex } from '../utils/palette';
+import { IoMdArrowDropdown } from "react-icons/io";
 
 const AddItemForm = ({ addItem, setAddForm, editingId, editingItem, updateItem, setEditingId }) => {
     const [title, setTitle] = useState('');
@@ -10,6 +12,8 @@ const AddItemForm = ({ addItem, setAddForm, editingId, editingItem, updateItem, 
     const [tags, setTags] = useState('');
     const [imageUrl, setImageUrl] = useState('');
     const [destinationUrl, setDestinationUrl] = useState('');
+    const [colorIndex, setColorIndex] = useState(null);
+    const [colorOpen, setColorOpen] = useState(false);
 
     const checkTag = (tag) => {
         return typeof tag === 'string' && tag.trim().length > 0;
@@ -22,15 +26,17 @@ const AddItemForm = ({ addItem, setAddForm, editingId, editingItem, updateItem, 
             return tag.trim().toLowerCase();
         }).filter(checkTag);
         if (editingId) {
-            updateItem({ title, tags: separatedTags, destination: cleanedUrl || '', notes, image: imageUrl });
+            updateItem({ title, tags: separatedTags, destination: cleanedUrl || '', notes, image: imageUrl, colorIndex: colorIndex });
         } else {
-            const result = await addItem({ title, tags: separatedTags, destination: cleanedUrl || '', notes, image: imageUrl });
+            const result = await addItem({ title, tags: separatedTags, destination: cleanedUrl || '', notes, image: imageUrl, colorIndex: colorIndex });
             if (result.success) {
                 setTitle('');
                 setTags('');
                 setNotes('');
                 setImageUrl('');
                 setDestinationUrl('');
+                setColorIndex(null);
+                setColorOpen(false);
             } else {
                 console.error("Failed to submit card: ", result.error);
             }
@@ -44,12 +50,16 @@ const AddItemForm = ({ addItem, setAddForm, editingId, editingItem, updateItem, 
             setTags(editingItem.tags.join(', '));
             setImageUrl(editingItem.image || '');
             setDestinationUrl(editingItem.destination || '');
+            setColorIndex(getColorIndex(editingItem.id, editingItem.colorIndex))
+            setColorOpen(false);
         } else {
             setTitle('');
             setTags('');
             setNotes('');
             setImageUrl('');
             setDestinationUrl('');
+            setColorIndex(null);
+            setColorOpen(false);
         }
     }, [editingItem]);
 
@@ -58,7 +68,13 @@ const AddItemForm = ({ addItem, setAddForm, editingId, editingItem, updateItem, 
     return (
         <div className='add-form-container'>
             <form className='add-form' onSubmit={handleSubmit}>
-                <h1>{editingItem ? 'Edit Item' : 'Add Item'}</h1>
+                <div className='heading-container'>
+                    <h1 className='heading'>{editingItem ? 'Edit Item' : 'Add Item'}</h1>
+                    <button className='card-color' type='button' onClick={() => {setColorOpen(!colorOpen)}} aria-label='Choose card color'>
+                        <div className='swatch' style={{ backgroundColor: typeof colorIndex === 'number' ? PALETTE[colorIndex].bg : '#f9f9f9', }}></div>
+                        <IoMdArrowDropdown size={30} />
+                    </button>
+                </div>
                 <input
                     type='text'
                     required
@@ -71,6 +87,7 @@ const AddItemForm = ({ addItem, setAddForm, editingId, editingItem, updateItem, 
                     placeholder='General, Free stuff...'
                     value={tags}
                     onChange={(e) => setTags(e.target.value)}
+                    required
                 />
                 <div className='url-div'>
                     <input
@@ -98,6 +115,21 @@ const AddItemForm = ({ addItem, setAddForm, editingId, editingItem, updateItem, 
                 <button type='button' onClick={() => { setAddForm(false); setEditingId(null); }}>Cancel</button>
                 <button type='submit'>{editingItem ? 'Save changes' : 'Add new card'}</button>
             </form>
+            {colorOpen && (
+                <div className='color-picker'>
+                    {PALETTE.map((entry, i) => (
+                        <button 
+                            className='swatch'
+                            type='button' 
+                            key={i} 
+                            aria-label={`Color ${i + 1}`} 
+                            aria-pressed={colorIndex === i} 
+                            style={{ backgroundColor: entry.bg }} 
+                            onClick={() => { setColorIndex(i); setColorOpen(false); }}
+                        ></button>
+                    ))}
+                </div>
+            )}
         </div>
     );
 };

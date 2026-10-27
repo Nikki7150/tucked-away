@@ -68,8 +68,7 @@ function App() {
     const counts = PALETTE.map(() => 0);
     items.forEach((item) => {
       if (item.colorIndex != undefined && item.colorIndex != null) {
-        counts[item.colorIndex] += 1;
-        getColorIndex(item.id, item.colorIndex)
+        counts[getColorIndex(item.id, item.colorIndex)] += 1;
       }
     });
     const minCount = Math.min(...counts);

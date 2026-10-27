@@ -26,7 +26,7 @@ const SavedItemCard = ({ id, title, tags, notes, destination, image, deleteItem,
         e.currentTarget.style.setProperty('--scale', '1');
     }
 
-    const colorEntry = getColorIndex(id, colorIndex);
+    const colorEntry = PALETTE[getColorIndex(id, colorIndex)];
 
     return (
         <div className="saved-card-container" onMouseMove={handleMove} onMouseLeave={handleLeave} style={{ backgroundColor: colorEntry.bg, color: colorEntry.text, }}>
