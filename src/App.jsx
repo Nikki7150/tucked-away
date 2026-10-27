@@ -9,6 +9,7 @@ import ProfileModal from './components/ProfileModal.jsx';
 import { subscribeToItems, addCard, deleteCard, updateCard, getPreferences, savePreferences } from './userData.js';
 import { IoIosArrowDown } from "react-icons/io";
 import AuthForm from './components/AuthForm.jsx';
+import PALETTE, { getColorIndex } from './utils/palette.js';
 
 function App() {
   const [query, setQuery] = useState('');
@@ -64,9 +65,26 @@ function App() {
   }, [user?.uid]);
 
   const addItem = async (data) => {
+    const counts = PALETTE.map(() => 0);
+    items.forEach((item) => {
+      if (item.colorIndex != undefined && item.colorIndex != null) {
+        counts[item.colorIndex] += 1;
+        getColorIndex(item.id, item.colorIndex)
+      }
+    });
+    const minCount = Math.min(...counts);
+    const leastUserIndexes = [];
+    counts.forEach((count, index) => {
+      if (count === minCount) {
+        leastUserIndexes.push(index);
+      }
+    });
+    const randomIndex = Math.floor(Math.random() * leastUserIndexes.length);
+    const chosenColorIndex = leastUserIndexes[randomIndex];
     const newItems = {
       ...data,
       favorite: false,
+      colorIndex: chosenColorIndex,
     };
     try {
       await addCard(user.uid, newItems);

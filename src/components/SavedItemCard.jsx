@@ -3,8 +3,9 @@ import { CiTrash, CiEdit } from "react-icons/ci";
 import { IoMdHeartEmpty, IoMdHeart } from "react-icons/io";
 import { FaLink } from "react-icons/fa6";
 import { useEffect, useState } from 'react';
+import PALETTE, { getColorIndex } from '../utils/palette';
 
-const SavedItemCard = ({ id, title, tags, notes, destination, image, deleteItem, favorite, toggleFavorite, setEditingId, setAddForm }) => {
+const SavedItemCard = ({ id, title, tags, notes, destination, image, deleteItem, favorite, colorIndex, toggleFavorite, setEditingId, setAddForm }) => {
     const [imageFailed, setImageFailed] = useState(false);
     useEffect(() => {
         setImageFailed(false);
@@ -25,11 +26,10 @@ const SavedItemCard = ({ id, title, tags, notes, destination, image, deleteItem,
         e.currentTarget.style.setProperty('--scale', '1');
     }
 
-    const PALETTE = ['#ddd3c9', '#ecc4c3', '#b97d7b', '#928e5e'];
-    const randomColor = PALETTE[Math.floor(Math.random() * PALETTE.length)];
+    const colorEntry = getColorIndex(id, colorIndex);
 
     return (
-        <div className="saved-card-container" onMouseMove={handleMove} onMouseLeave={handleLeave} style={{ backgroundColor: randomColor }}>
+        <div className="saved-card-container" onMouseMove={handleMove} onMouseLeave={handleLeave} style={{ backgroundColor: colorEntry.bg, color: colorEntry.text, }}>
             {image && !imageFailed && (
                 <img src={image} alt={title} onError={() => setImageFailed(true)} />
             )}

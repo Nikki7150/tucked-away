@@ -44,6 +44,7 @@ const SavedItemGrid = ({ query, items, deleteItem, showFavorites, toggleFavorite
                     destination={item.destination}
                     deleteItem={deleteItem}
                     favorite={item.favorite}
+                    colorIndex={item.colorIndex}
                     toggleFavorite={toggleFavorite}
                     setEditingId={setEditingId}
                     setAddForm={setAddForm}
