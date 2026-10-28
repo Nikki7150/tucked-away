@@ -37,8 +37,8 @@ const AuthForm = ({ signIn, onProfileUpdated }) => {
 
     return (
         <div className='auth-form-container'>
-            <h1>Tucked Away</h1>
-            <p>Your archive of random things</p>
+            <img src='/src/assets/tucked-away-logo.png' className='app-title' />
+            <p className='app-tagline'>Tuck it away. Find it again. </p>
             <h2 className="login-title">{mode === 'signup' ? 'Sign Up' : 'Login'}</h2>
             {authError && <p className="error" role='alert'>{authError}</p>}
             <form onSubmit={handleSubmit} className="login-form">
