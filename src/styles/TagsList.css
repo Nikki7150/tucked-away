@@ -10,7 +10,13 @@
     display: flex;
     flex-wrap: wrap;
     flex-direction: column;
-    gap: 8px 12px;
+    gap: 8px 10px;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: min(360px, calc(100vw - 40px));
+    max-width: none;
+    max-height: 60vh;
+    overflow-y: auto;
     z-index: 10;
     color: black;
     box-shadow: 0px 4px 10px var(--soldier-green);
@@ -19,6 +25,8 @@
 .tag-heading {
     align-self: center;
     color: var(--warm-fog);
+    font-family: 'Homemade Apple', cursive;
+    width: 100%;
 }
 
 .tags-names{
@@ -28,6 +36,8 @@
     border: 1px var(--soldier-green) solid !important;
     border-radius: 10px !important;
     background-color: transparent;
+    font-family: 'Loved by the King', cursive;
+    letter-spacing: 1.5px;
 }
 
 .tags-names:hover {

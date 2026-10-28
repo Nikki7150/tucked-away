@@ -112,9 +112,11 @@
 
 .card-tag {
     padding: 5px 10px;
-    border: 1px solid red;
+    border: 1px solid rgb(100, 57, 57);
+    background-color: rgba(100, 57, 57, 0.472);
     border-radius: 30px;
     text-transform: uppercase;
+    color: black;
 }
 
 .card-buttons {
@@ -122,4 +124,16 @@
     flex-direction: row;
     gap: 10px;
     justify-content: end;
+}
+
+.card-buttons button {
+    cursor: pointer;
+    padding: 0px;
+    height: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: transparent;
+    border: none;
+    position: inherit;
 }

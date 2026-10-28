@@ -47,8 +47,8 @@ const SavedItemCard = ({ id, title, tags, notes, destination, image, deleteItem,
             )}
             <p className='card-notes'>{notes}</p>
             <div className='card-buttons'>
-                <button className='card-delete' onClick={() => deleteItem(id)} aria-label='delete card'><CiTrash /></button>
-                <button className='card-edit' onClick={() => { setEditingId(id); setAddForm(true); }} aria-label='edit card'><CiEdit /></button>
+                <button className='card-delete' onClick={() => deleteItem(id)} aria-label='delete card'><CiTrash size={25} /></button>
+                <button className='card-edit' onClick={() => { setEditingId(id); setAddForm(true); }} aria-label='edit card'><CiEdit size={25} /></button>
             </div>
         </div>
     );
