@@ -31,13 +31,13 @@ const SavedItemCard = ({ id, title, tags, notes, destination, image, deleteItem,
     return (
         <div className="saved-card-container" onMouseMove={handleMove} onMouseLeave={handleLeave} style={{ backgroundColor: colorEntry.bg, color: colorEntry.text, }}>
             {image && !imageFailed && (
-                <img src={image} alt={title} onError={() => setImageFailed(true)} />
+                <img className='card-image' src={image} alt={title} onError={() => setImageFailed(true)} />
             )}
-            <button onClick={() => toggleFavorite(id)} aria-label='favorite'>{favorite ? <IoMdHeart /> :<IoMdHeartEmpty />}</button>
-            <h2>{title}</h2>
+            <button className='favorite-card-button' onClick={() => toggleFavorite(id)} aria-label='favorite'>{favorite ? <IoMdHeart /> :<IoMdHeartEmpty />}</button>
+            <h2 className='card-title'>{title}</h2>
             <div className='tags'>
                 {(tags || []).map((tag) => (
-                    <p key={tag}>
+                    <p key={tag} className='card-tag'>
                         {tag}
                     </p>
                 ))}
@@ -45,9 +45,11 @@ const SavedItemCard = ({ id, title, tags, notes, destination, image, deleteItem,
             {destination && (
                 <a href={destination} target='_blank' rel='noopener noreferrer' className='destination-link'><FaLink /> <span>{destination}</span></a>
             )}
-            <p>{notes}</p>
-            <button onClick={() => deleteItem(id)} aria-label='delete card'><CiTrash /></button>
-            <button onClick={() => { setEditingId(id); setAddForm(true); }} aria-label='edit card'><CiEdit /></button>
+            <p className='card-notes'>{notes}</p>
+            <div className='card-buttons'>
+                <button className='card-delete' onClick={() => deleteItem(id)} aria-label='delete card'><CiTrash /></button>
+                <button className='card-edit' onClick={() => { setEditingId(id); setAddForm(true); }} aria-label='edit card'><CiEdit /></button>
+            </div>
         </div>
     );
 };

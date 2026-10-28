@@ -9,9 +9,18 @@ p {
 }
 
 .search-bar {
+    padding: 10px;
+    color: var(--blossom);
+    font-family: 'Loved by the King', cursive;
+    font-size: 18px;
     background-color: var(--warm-fog);
-    border: 1px solid var(--soldier-green);
+    border: 2px solid var(--soldier-green);
     width: 250px;
+    letter-spacing: 1.5px;
+}
+
+.search-bar input::placeholder {
+    color: var(--meadow-mauve);
 }
 
 .filter-button.true {

@@ -1,5 +1,5 @@
 const PALETTE = [
-    {bg: '#f9f9f9', text: '#575527'}, 
+    // {bg: '#f9f9f9', text: '#575527'}, 
     {bg: '#ddd3c9', text: '#b97d7b'}, 
     {bg: '#ecc4c3', text: '#928e5e'}, 
     {bg: '#b97d7b', text: '#ecc4c3'}, 

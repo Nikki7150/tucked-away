@@ -30,17 +30,20 @@
     height: 50px;
 }
 
-input {
+.add-form input {
     padding: 10px;
     background-color: transparent;
     border: none;
     border-bottom: 2px solid var(--berry-good);
+    color: var(--warm-fog);
+    font-family: 'Crafty Girls', cursive;
+    font-size: 18px;
 }
 
-input::placeholder {
+.add-form input::placeholder {
     color: var(--soldier-green);
     font-family: 'Crafty Girls', cursive;
-    font-size: 15px;
+    font-size: 18px;
 }
 
 .url-div {
@@ -55,6 +58,13 @@ input::placeholder {
     width: 100%;
 }
 
+.color-picker-wrap {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
 .card-color {
     padding: 10px;
     display: flex;
@@ -64,16 +74,17 @@ input::placeholder {
     gap: 10px;
     background-color: var(--soldier-green);
     border: 0cap;
+    cursor: pointer;
 }
 
 .swatch {
     width: 30px;
     height: 30px;
     border-radius: 50%;
-    border: 2px outset rgba(54, 53, 53, 0.764);
+    border: 2px outset var(--soldier-green);
 }
 
-.heading-container {
+.container {
     position: inherit;
     display: flex;
     flex-direction: row;
@@ -84,8 +95,44 @@ input::placeholder {
 }
 
 .color-picker {
-    position: relative;
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
     padding: 10px;
     background-color: var(--warm-fog);
-    width: 100px;
+    width: 140px;
+    border-radius: 12px;
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.15);
+    z-index: 1003;
+}
+
+.cancel-button, .add-card-button {
+    padding: 5px 10px;
+    cursor: pointer;
+    font-family: 'Loved by the King', cursive;
+    font-size: larger;
+    letter-spacing: 1.5px;
+    color: var(--warm-fog);
+}
+
+.cancel-button {
+    background-color: transparent;
+    border: 2px outset var(--meadow-mauve);
+}
+
+.cancel-button:hover {
+    border: 2px inset var(--meadow-mauve);
+}
+
+.add-card-button {
+    background-color: var(--blossom);
+    border: 2px outset var(--blossom);
+}
+
+.add-card-button:hover {
+    border: 2px inset var(--blossom);
 }

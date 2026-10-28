@@ -68,12 +68,29 @@ const AddItemForm = ({ addItem, setAddForm, editingId, editingItem, updateItem, 
     return (
         <div className='add-form-container'>
             <form className='add-form' onSubmit={handleSubmit}>
-                <div className='heading-container'>
+                <div className='container'>
                     <h1 className='heading'>{editingItem ? 'Edit Item' : 'Add Item'}</h1>
-                    <button className='card-color' type='button' onClick={() => {setColorOpen(!colorOpen)}} aria-label='Choose card color'>
-                        <div className='swatch' style={{ backgroundColor: typeof colorIndex === 'number' ? PALETTE[colorIndex].bg : '#f9f9f9', }}></div>
-                        <IoMdArrowDropdown size={30} />
-                    </button>
+                    <div className='color-picker-wrap'>
+                        <button className='card-color' type='button' onClick={() => {setColorOpen(!colorOpen)}} aria-label='Choose card color'>
+                            <div className='swatch' style={{ backgroundColor: typeof colorIndex === 'number' ? PALETTE[colorIndex].bg : '#f9f9f9', }}></div>
+                            <IoMdArrowDropdown size={30} />
+                        </button>
+                        {colorOpen && (
+                            <div className='color-picker'>
+                                {PALETTE.map((entry, i) => (
+                                    <button 
+                                        className='swatch'
+                                        type='button' 
+                                        key={i} 
+                                        aria-label={`Color ${i + 1}`} 
+                                        aria-pressed={colorIndex === i} 
+                                        style={{ backgroundColor: entry.bg }} 
+                                        onClick={() => { setColorIndex(i); setColorOpen(false); }}
+                                    ></button>
+                                ))}
+                            </div>
+                        )}
+                    </div>
                 </div>
                 <input
                     type='text'
@@ -112,24 +129,11 @@ const AddItemForm = ({ addItem, setAddForm, editingId, editingItem, updateItem, 
                     value={imageUrl}
                     onChange={(e) => setImageUrl(e.target.value)}
                 />
-                <button type='button' onClick={() => { setAddForm(false); setEditingId(null); }}>Cancel</button>
-                <button type='submit'>{editingItem ? 'Save changes' : 'Add new card'}</button>
-            </form>
-            {colorOpen && (
-                <div className='color-picker'>
-                    {PALETTE.map((entry, i) => (
-                        <button 
-                            className='swatch'
-                            type='button' 
-                            key={i} 
-                            aria-label={`Color ${i + 1}`} 
-                            aria-pressed={colorIndex === i} 
-                            style={{ backgroundColor: entry.bg }} 
-                            onClick={() => { setColorIndex(i); setColorOpen(false); }}
-                        ></button>
-                    ))}
+                <div className='container'>
+                    <button className='cancel-button' type='button' onClick={() => { setAddForm(false); setEditingId(null); }}>Cancel</button>
+                    <button className='add-card-button' type='submit'>{editingItem ? 'Save changes' : 'Add new card'}</button>
                 </div>
-            )}
+            </form>
         </div>
     );
 };

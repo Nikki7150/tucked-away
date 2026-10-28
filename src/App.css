@@ -96,6 +96,11 @@
     border: 1px solid black;
     border-radius: 10px;
     cursor: pointer;
+    padding: 5px 10px;
+    font-family: 'Loved by the King', cursive;
+    font-size: 20px;
+    align-items: center;
+    letter-spacing: 1.5px;
 }
 
 .logo {

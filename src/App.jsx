@@ -83,7 +83,7 @@ function App() {
     const newItems = {
       ...data,
       favorite: false,
-      colorIndex: chosenColorIndex,
+      colorIndex: typeof data.colorIndex === 'number' ? data.colorIndex : chosenColorIndex,
     };
     try {
       await addCard(user.uid, newItems);
