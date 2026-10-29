@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import '../styles/SavedItem.css'
+import '../styles/AuthForm.css'
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from 'firebase/auth';
 import { auth } from '../../firebaseConfig';
 import { getAuthErrorMessage } from '../utils/authErrors';
