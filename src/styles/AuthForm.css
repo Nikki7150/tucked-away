@@ -1,17 +1,52 @@
 .auth-form-container {
     display: flex;
-    flex-direction: column;
-    align-items: center;
+    flex-direction: row;
+    align-items: stretch;
     justify-content: center;
+    width: 100%;
+    min-height: 100vh;
+    gap: 0;
+    padding: 0;
+    margin: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.page-1,
+.page-2 {
+    flex: 1;
+    min-width: 0;
+    padding: 40px 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.page-1 {
+    background: radial-gradient(circle at center, var(--berry-good), var(--blossom));
+}
+
+.page-2 {
+    background: radial-gradient(circle at center, var(--meadow-mauve), var(--soldier-green));
+}
+
+.app-icon {
+    width: 100px;
+    border: 2px outset var(--berry-good);
 }
 
 .app-title {
-    width: 500px;
+    width: min(500px, 90%);
+    display: block;
 }
 
 .app-tagline {
     font-family: 'Crafty girls', cursive;
     font-size: 25px;
+    color: var(--meadow-mauve);
 }
 
 .login-title {
@@ -28,25 +63,24 @@
 .login-form {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    background-color: var(--meadow-mauve);
+    width: 400px;
     padding: 10px;
-    gap: 20px;
+    gap: 30px;
+    justify-self: flex-start;
 }
 
 .form-group {
     display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0;
 }
 
 .form-group label {
     font-family: 'Loved by the King', cursive;
     letter-spacing: 1.5px;
-    font-size: 30px;
+    font-size: 1.6em;
+    color: var(--soldier-green);
 }
 
 .login-form input {
@@ -54,9 +88,14 @@
     padding: 10px;
     background-color: transparent;
     border: none;
-    border-bottom: 2px solid var(--berry-good);
+    border-bottom: 2px dashed var(--warm-fog);
     font-family: 'Crafty Girls', cursive;
     font-size: 20px;
+    color: var(--berry-good);
+}
+
+.login-form input::placeholder {
+    color: rgb(78, 73, 73);
 }
 
 .submit-button {
