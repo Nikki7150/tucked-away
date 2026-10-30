@@ -106,3 +106,16 @@
     color: var(--warm-fog);
     cursor: pointer;
 }
+
+.profile-modal {
+    width: clamp(320px, 25vw, 440px);
+    overflow-y: auto;
+}
+
+.stats-div { width: 100%; }
+.stats-card { width: auto; flex: 1; min-width: 0; padding: 20px 10px; }
+
+@media (max-width: 700px) {
+    .profile-modal { width: 100%; border-radius: 0; padding: 30px 20px; }
+    .stats-div { flex-direction: column; }
+}

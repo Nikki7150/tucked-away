@@ -136,3 +136,23 @@
 .add-card-button:hover {
     border: 2px inset var(--blossom);
 }
+
+.add-form-container { 
+    position: fixed; 
+}
+
+.add-form {
+    width: min(500px, calc(100vw - 32px));
+    max-height: calc(100dvh - 32px);
+    overflow-y: auto;
+}
+
+@media (max-width: 600px) {
+    .add-form { 
+        padding: 16px; 
+        gap: 14px; 
+    }
+    .add-form input, .add-form input::placeholder {
+        font-size: 16px; 
+    }
+}

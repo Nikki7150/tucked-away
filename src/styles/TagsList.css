@@ -47,3 +47,13 @@
 .tags-names.true {
     background-color: var(--berry-good);
 }
+
+@media (max-width: 700px) {
+    .tags-list {
+        left: 50%;
+        right: auto;
+        transform: translateX(-50%);
+        width: calc(100vw - 32px);
+        max-height: 50dvh;
+    }
+}

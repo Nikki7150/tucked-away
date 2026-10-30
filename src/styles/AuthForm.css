@@ -140,3 +140,22 @@
 .google-button:hover {
     background-color: var(--berry-good);
 }
+
+.auth-form-container { 
+    min-height: 100dvh; 
+}
+.login-form { 
+    width: min(400px, 100%); 
+}
+
+@media (max-width: 800px) {
+    .auth-form-container { 
+        flex-direction: column; 
+    }
+    .page-1, .page-2 { 
+        padding: 30px 20px; 
+    }
+    .page-2 { 
+        gap: 20px; 
+    }
+}

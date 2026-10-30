@@ -40,3 +40,25 @@
     color: rgb(137, 9, 9);
     border: 1px solid var(--soldier-green);
 }
+
+@media (max-width: 900px) {
+    .app-name { 
+        display: none; 
+    }
+}
+
+@media (max-width: 620px) {
+    .header-container { 
+        top: 12px; 
+        gap: 6px; 
+        padding: 8px; 
+    }
+    .header-container input { 
+        width: 140px; 
+        min-width: 0; 
+    }
+    .header-container button { 
+        padding: 8px; 
+        font-size: 18px; 
+    }
+}

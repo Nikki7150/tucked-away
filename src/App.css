@@ -53,6 +53,7 @@
 .loading-state {
     align-self: auto;
     font-size: 40px;
+    font-family: 'Crafty Girls', cursive;
 }
 
 .load-error {
@@ -63,7 +64,10 @@
     position: fixed;
     z-index: 1010;
     top: 10px;
-    left: 40%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: max-content;
+    max-width: calc(100vw - 32px);
 }
 
 .save-error {
@@ -74,10 +78,13 @@
     position: fixed;
     z-index: 1010;
     top: 10px;
-    left: 40%;
     display: flex;
     flex-direction: row;
     gap: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: max-content;
+    max-width: calc(100vw - 32px);
 }
 
 .sorting-button-container {
@@ -108,4 +115,46 @@
     width: 230px;
     height: auto;
     margin-top: 20px;
+}
+
+@media (max-width: 1250px) {
+    .logo { 
+        width: 150px; 
+    }
+}
+
+@media (max-width: 1050px) {
+    .logo { 
+        display: none; 
+    }
+    .header { 
+        justify-content: flex-end; 
+    }
+}
+
+@media (max-width: 900px) {
+    .sorting-button-container { 
+        padding: 0 24px; 
+    }
+}
+
+@media (max-width: 620px) {
+    .header { 
+        padding: 12px; 
+    }
+    .open-profile { 
+        width: 48px; 
+        height: 48px; 
+        padding: 0; 
+        margin-top: 0; 
+    }
+    .fallback-open-profile-text { 
+        font-size: 20px; 
+    }
+    .sorting-button-container { 
+        padding: 0 16px; 
+    }
+    .sorting-button { 
+        font-size: 16px; 
+    }
 }
