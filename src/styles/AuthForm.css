@@ -31,6 +31,7 @@
 
 .page-2 {
     background: radial-gradient(circle at center, var(--meadow-mauve), var(--soldier-green));
+    gap: 30px;
 }
 
 .app-icon {
@@ -51,7 +52,8 @@
 
 .login-title {
     font-family: 'Homemade Apple', cursive;
-
+    color: var(--berry-good);
+    font-size: 2em;
 }
 
 .error {
@@ -80,7 +82,7 @@
     font-family: 'Loved by the King', cursive;
     letter-spacing: 1.5px;
     font-size: 1.6em;
-    color: var(--soldier-green);
+    color: var(--warm-fog);
 }
 
 .login-form input {
@@ -100,4 +102,35 @@
 
 .submit-button {
     padding: 10px;
+    font-family: 'Loved by the King', cursive;
+    font-size: 1.6em;
+    letter-spacing: 1.5px;
+    background-color: var(--blossom);
+    border: 2px outset var(--blossom);
+    cursor: pointer;
+}
+
+.submit-button:hover {
+    border: 2px inset var(--blossom);
+}
+
+.toggle-button {
+    font-family: 'Crafty Girls', cursive;
+    font-size: 1.2em;
+    background-color: transparent;
+    border: none;
+    color: var(--warm-fog);
+    cursor: pointer;
+}
+
+.toggle-button:hover {
+    color: var(--berry-good);
+}
+
+.google-button {
+    padding: 10px;
+    font-family: 'Loved by the King', cursive;
+    font-size: 1.3em;
+    letter-spacing: 1.5px;
+    cursor: pointer;
 }
