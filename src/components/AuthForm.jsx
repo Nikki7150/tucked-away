@@ -3,6 +3,8 @@ import '../styles/AuthForm.css'
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from 'firebase/auth';
 import { auth } from '../../firebaseConfig';
 import { getAuthErrorMessage } from '../utils/authErrors';
+import Logo from '../assets/tucked-away-logo.png';
+import Icon from '../assets/tucked-away-icon.png';
 
 const AuthForm = ({ signIn, onProfileUpdated }) => {
     const [mode, setMode] = useState('login');
@@ -38,8 +40,8 @@ const AuthForm = ({ signIn, onProfileUpdated }) => {
     return (
         <div className='auth-form-container'>
             <div className='page-1'>
-                <img src='/src/assets/tucked-away-icon.png' className='app-icon' />
-                <img src='/src/assets/tucked-away-logo.png' className='app-title' />
+                <img src={Icon} className='app-icon' />
+                <img src={Logo} className='app-title' />
                 <p className='app-tagline'>Tuck it away. Find it again. </p>
             </div>
             <div className='page-2'>

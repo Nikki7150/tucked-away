@@ -10,6 +10,8 @@ import { subscribeToItems, addCard, deleteCard, updateCard, getPreferences, save
 import { IoIosArrowDown } from "react-icons/io";
 import AuthForm from './components/AuthForm.jsx';
 import PALETTE, { getColorIndex } from './utils/palette.js';
+import Logo from './assets/tucked-away-logo.png';
+import Icon from './assets/tucked-away-icon.png';
 
 function App() {
   const [query, setQuery] = useState('');
@@ -184,7 +186,7 @@ function App() {
       ) : (
         <div className='home-screen'>
           <div className="header">
-            <img src="/src/assets/tucked-away-logo.png" alt="Tucked Away logo" className="logo" />
+            <img src={Logo} alt="Tucked Away logo" className="logo" />
             <Header query={query} setQuery={setQuery} setAddForm={setAddForm} setShowFavorites={setShowFavorites} setTagsList={setTagsList} tagsList={tagsList} noRepeatTags={noRepeatTags} setSelectedTag={setSelectedTag} selectedTag={selectedTag} setEditingId={setEditingId} showFavorites={showFavorites} />
             {user.photoURL ? (
               <button className='open-profile' onClick={() => setProfileModal(true)} style={{ backgroundImage: `url(${user?.photoURL})`, backgroundSize: 'cover' }} alt={`${user.displayName}'s profile picture to open profile`}></button>
