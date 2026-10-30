@@ -159,3 +159,42 @@
         transition: none;
     }
 }
+
+@media (max-width: 620px) {
+    .saved-grid-container {
+        columns: 2;          /* two columns, ignores the 250px width */
+        column-gap: 12px;
+    }
+
+    .saved-grid-container .saved-card-container {
+        padding: 12px;
+        margin-bottom: 12px;
+        gap: 8px;
+    }
+
+    .saved-card-container h2 {
+        font-size: 1.1rem;
+        padding-right: 22px;   /* keeps the title clear of the heart */
+        overflow-wrap: anywhere;
+    }
+
+    .tags {
+        flex-wrap: wrap;
+        gap: 6px;
+        font-size: 12px;
+    }
+
+    .card-tag {
+        padding: 3px 8px;
+    }
+
+    .destination-link {
+        font-size: 14px;
+    }
+
+    .favorite-card-button {
+        top: 8px;
+        right: 8px;
+        font-size: 24px;
+    }
+}

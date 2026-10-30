@@ -27,3 +27,7 @@ p {
     background-color: var(--blossom);
     border: 1px solid var(--soldier-green);
 }
+
+.filter-button {
+    margin-top: 5px;
+}

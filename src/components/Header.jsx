@@ -5,6 +5,7 @@ const Header = ({ query, setQuery, setAddForm, setShowFavorites, setTagsList, ta
     return (
         <header className="header-container">
             <h2 className="app-name">Tucked Away</h2>
+            <img src="/src/assets/tucked-away-icon.png" alt="" className="pill-icon" />
             <SearchBar query={query} setQuery={setQuery} setTagsList={setTagsList} tagsList={tagsList} noRepeatTags={noRepeatTags} setSelectedTag={setSelectedTag} selectedTag={selectedTag} />
             <button aria-label='add-button' onClick={() => { setEditingId(null); setAddForm(true); }} className='add-button'>+</button>
             <button aria-label='favourites-button' onClick={() => setShowFavorites((prev) => !prev)} className={`favorite-button + ${showFavorites ? 'true' : ''}`}>❤︎⁠</button>

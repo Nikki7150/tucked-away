@@ -2,58 +2,59 @@
     position: absolute;
     top: 80px;
     right: 20px;
-    background-color: var(--blossom);
-    height: fit-content;
-    max-width: 220px;
-    padding: 20px;
-    border-radius: 15px;
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: column;
-    gap: 8px 10px;
-    flex-direction: row;
-    flex-wrap: wrap;
-    width: min(360px, calc(100vw - 40px));
-    max-width: none;
+    z-index: 10;
+    width: min(360px, calc(100vw - 32px));
     max-height: 60vh;
     overflow-y: auto;
-    z-index: 10;
-    color: black;
+    padding: 20px;
+    border-radius: 15px;
+    background-color: var(--blossom);
     box-shadow: 0px 4px 10px var(--soldier-green);
+    color: black;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    gap: 8px 10px;
 }
 
 .tag-heading {
-    align-self: center;
     color: var(--warm-fog);
     font-family: 'Homemade Apple', cursive;
     width: 100%;
+    margin: 0 0 4px;
 }
 
 .tags-names{
-    font-size: 15px !important;
-    text-transform: uppercase;
-    padding: 5px;
-    border: 1px var(--soldier-green) solid !important;
-    border-radius: 10px !important;
+    flex: 0 0 auto;
+    max-width: 100%;
+    padding: 5px 12px;
+    border: 1px var(--soldier-green) solid;
+    border-radius: 999px;
+    font-size: 15px;
     background-color: transparent;
     font-family: 'Loved by the King', cursive;
     letter-spacing: 1.5px;
+    text-transform: uppercase;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    cursor: pointer;
 }
 
-.tags-names:hover {
-    background-color: var(--berry-good) !important;
-}
-
+.tags-names:hover,
 .tags-names.true {
     background-color: var(--berry-good);
 }
 
+
 @media (max-width: 700px) {
     .tags-list {
-        left: 50%;
-        right: auto;
-        transform: translateX(-50%);
-        width: calc(100vw - 32px);
-        max-height: 50dvh;
+        position: fixed;
+        top: 72px;
+        left: 16px;
+        right: 16px;
+        width: auto;
+        max-height: 55dvh;
     }
 }
