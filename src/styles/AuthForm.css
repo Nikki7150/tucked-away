@@ -133,4 +133,10 @@
     font-size: 1.3em;
     letter-spacing: 1.5px;
     cursor: pointer;
+    background-color: var(--warm-fog);
+    border: none;
+}
+
+.google-button:hover {
+    background-color: var(--berry-good);
 }
